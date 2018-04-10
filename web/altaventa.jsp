@@ -41,7 +41,7 @@
             <label>Ciudad de domicilio:</label>
             <input type="text" name="ciudadDomicilio" value="<%=Util.convertirNullAStringVacio(request.getParameter("ciudadDomicilio"))%>"/><br>
             <label>Forma de pago</label>
-            <select name="formaPago">
+            <select name="formaPago" value="<%=request.getParameter("formaPago")%>">
                 <option value="T">Tarjeta</option>
                 <option value="E">Efectivo</option>
             </select><br>
