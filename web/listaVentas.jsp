@@ -18,6 +18,12 @@
     </head>
     <body>
         <h1>Lista de Ventas</h1>
+        <%
+            String mensaje = (String) request.getAttribute("mensaje");
+            if(mensaje != null){
+            out.println("<p style='color:green;'>" + mensaje + "</p>");
+            }
+        %>
         <table align="center" border="2" cellspacing="0">
             <a href="altaventa.jsp">Alta de Venta</a><br>
         <%

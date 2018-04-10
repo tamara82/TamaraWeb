@@ -16,6 +16,7 @@
     </head>
     <body>
         <h1>Lista de discos</h1>
+        
         <table align="center" border="2" cellspacing="0">
             <a href="altadisco.jsp">Alta de Disco</a><br>
         <%

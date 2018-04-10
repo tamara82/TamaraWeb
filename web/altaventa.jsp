@@ -17,6 +17,16 @@
     <body>
         <form method="post" action="ServletAltaVenta">
             <h1>Alta de Venta</h1>
+        <%
+            String mensaje = (String) request.getAttribute("mensaje");
+            if(mensaje != null){
+                out.println("<p style='color:red;'>" + mensaje + "</p>");
+                ArrayList<String> listaErrores = (ArrayList) request.getAttribute("listaErrores");
+                for (String m : listaErrores){
+                    out.println("<p style='color:green;'>" + m + "</p>");
+                }
+            }
+        %>
             <label>Nombre del cliente:</label>
             <input type="text" name="nombreCliente"/><br>
             <label>Apellido del cliente:</label>

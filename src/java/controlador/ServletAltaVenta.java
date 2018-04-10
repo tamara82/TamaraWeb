@@ -7,6 +7,7 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -48,9 +49,15 @@ public class ServletAltaVenta extends HttpServlet {
         try {
             Tamara t= new Tamara();
             t.insertarVenta(v);
+            request.setAttribute("mensaje", "La inserción de venta se ha realizado correctamente");
             request.getRequestDispatcher("listaVentas.jsp").forward(request,response);
         } catch (ExcepcionTamara ex) {
-            Logger.getLogger(ServletAltaVenta.class.getName()).log(Level.SEVERE, null, ex);
+//          Logger.getLogger(ServletAltaVenta.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("mensaje","La inserción de la venta no se ha podido realizar. Errores detectados: ");
+            ArrayList<String> listaErrores = new ArrayList();
+            listaErrores.add(ex.getMensajeErrorUsuario());
+            request.setAttribute("listaErrores", listaErrores);
+            request.getRequestDispatcher("altaventa.jsp").forward(request,response);
         }
         
     }
