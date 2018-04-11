@@ -6,10 +6,7 @@
 package controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +34,8 @@ public class ServletAltaVenta extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        ArrayList<String> listaErrores= validarFormulario(request);
+        if(listaErrores == null) {
         Venta v = new Venta();
         Disco d = new Disco();
         v.setNombreCliente(request.getParameter("nombreCliente"));
@@ -50,18 +49,33 @@ public class ServletAltaVenta extends HttpServlet {
             Tamara t= new Tamara();
             t.insertarVenta(v);
             request.setAttribute("mensaje", "La inserción de venta se ha realizado correctamente");
-            request.getRequestDispatcher("listaVentas.jsp").forward(request,response);
+            request.getRequestDispatcher("altaventa.jsp").forward(request,response);
+            
         } catch (ExcepcionTamara ex) {
 //          Logger.getLogger(ServletAltaVenta.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("mensaje","La inserción de la venta no se ha podido realizar. Errores detectados: ");
-            ArrayList<String> listaErrores = new ArrayList();
+            
             listaErrores.add(ex.getMensajeErrorUsuario());
-            request.setAttribute("listaErrores", listaErrores);
             request.getRequestDispatcher("altaventa.jsp").forward(request,response);
         }
+        }else{
+        request.setAttribute("mensaje","La inserción de la venta no se ha podido realizar. Errores detectados: "); 
+        request.setAttribute("listaErrores", listaErrores);
+        request.getRequestDispatcher("listaVentas.jsp").forward(request,response);
+        }
         
-    }
+        }
+      
+    
 
+    private ArrayList<String> validarFormulario(HttpServletRequest request) {
+        ArrayList<String> listaErrores = new ArrayList();
+        if(request.getParameter("nombreCliente") == null) listaErrores.add("El nombre es obligatorio");
+        if(request.getParameter("nombreCliente").length() == 0) listaErrores.add("El nombre es obligatorio");
+        if(request.getParameter("nombreCliente").length() < 3) listaErrores.add("La longitud del nombre debe ser mayor 2");
+       
+        if(listaErrores.size() ==0)return null;
+        else return listaErrores;
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

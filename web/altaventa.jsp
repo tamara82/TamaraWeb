@@ -41,17 +41,26 @@
             <label>Ciudad de domicilio:</label>
             <input type="text" name="ciudadDomicilio" value="<%=Util.convertirNullAStringVacio(request.getParameter("ciudadDomicilio"))%>"/><br>
             <label>Forma de pago</label>
-            <select name="formaPago" value="<%=request.getParameter("formaPago")%>">
+            <select name="formaPago">
                 <option value="T">Tarjeta</option>
                 <option value="E">Efectivo</option>
             </select><br>
             <label>Disco: </label>
             <select name="discoId">
+                <option value="0"></option>
             <%
                 Tamara t = new Tamara();
                 ArrayList<Disco> listaDiscos = t.leerDiscos();
                 for(Disco d : listaDiscos){
-                    out.println("<option value='"+d.getDiscoId()+"'>"+d.getTitulo()+"</option>");
+                    if (request.getParameter("discoId")!= null){
+                        if (request.getParameter("discoId").equals(Integer.toString(d.getDiscoId()))){
+                            out.println("<option value='"+d.getDiscoId()+"' selected>"+d.getTitulo()+"</option>");   
+                        }else{
+                            out.println("<option value='"+d.getDiscoId()+"'>"+d.getTitulo()+"</option>");
+                        }
+                    }else{
+                    out.println("<option value='"+d.getDiscoId()+"'>"+d.getTitulo()+"</option>");        
+                    }
                 }
             %>
             </select><br>

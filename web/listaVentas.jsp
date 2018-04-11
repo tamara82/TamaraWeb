@@ -24,12 +24,14 @@
                 ArrayList<String> listaErrores = (ArrayList) request.getAttribute("listaErrores");
                 if(listaErrores == null){
                     out.println("<p style='color:green;'>" + mensaje + "</p>");
-                } else{
+                }else{
+                    out.println("<p style='color:red;'>" + mensaje + "</p>");
                     for (String m : listaErrores){
-                    out.println("<p style='color:red;'>" + m + "</p>");
-                    }    
+                        out.println("<p style='color:red;'>" + m + "</p>");
+                        }
+                    
                 }
-                out.println("<p style='color:red;'>" + mensaje + "</p>");
+                
              }
         %>
         <table align="center" border="2" cellspacing="0">

@@ -32,5 +32,16 @@ public class Util {
         if (cadena.equals("null")) return "";
         return cadena;
     }
+    
+        public static boolean esEntero(String s) {
+        try { 
+            Integer.parseInt(s); 
+        } catch(NumberFormatException e) { 
+            return false; 
+        }
+        return true;
+    }
+        
+    
 
 }
