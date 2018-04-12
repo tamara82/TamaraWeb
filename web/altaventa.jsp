@@ -25,11 +25,12 @@
                     if(listaErrores == null){
                         out.println("<p style='color:green;'>" + mensaje + "</p>");
                     } else{
+                        out.println("<p style='color:red;'>" + mensaje + "</p>");
                         for (String m : listaErrores){
                         out.println("<p style='color:red;'>" + m + "</p>");
                         }    
                     }
-                    out.println("<p style='color:red;'>" + mensaje + "</p>");
+                    
                 }
             %>
             <label>Nombre del cliente:</label>
