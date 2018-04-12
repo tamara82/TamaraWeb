@@ -8,6 +8,10 @@
         <servlet-name>ServletAltaDisco</servlet-name>
         <servlet-class>controlador.ServletAltaDisco</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletModificarVenta</servlet-name>
+        <servlet-class>controlador.ServletModificarVenta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAltaVenta</servlet-name>
         <url-pattern>/ServletAltaVenta</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>ServletAltaDisco</servlet-name>
         <url-pattern>/ServletAltaDisco</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletModificarVenta</servlet-name>
+        <url-pattern>/ServletModificarVenta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

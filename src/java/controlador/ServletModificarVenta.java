@@ -7,6 +7,7 @@ package controlador;
 
 import Utilidades.Util;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +22,7 @@ import tamara.Venta;
  *
  * @author usuario
  */
-public class ServletAltaVenta extends HttpServlet {
+public class ServletModificarVenta extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,6 +41,7 @@ public class ServletAltaVenta extends HttpServlet {
             Tamara t= new Tamara();
             Venta v = new Venta();
         Disco d = new Disco();
+        v.setVentaId(Integer.parseInt(request.getParameter("ventaId")));
         v.setNombreCliente(request.getParameter("nombreCliente"));
         v.setApellidoCliente(request.getParameter("apellidoCliente"));
         v.setDni(request.getParameter("dni"));
@@ -47,7 +49,7 @@ public class ServletAltaVenta extends HttpServlet {
         v.setFormaPago(request.getParameter("formaPago"));
         d.setDiscoId(Integer.parseInt(request.getParameter("discoId")));
         v.setDisco(d);
-            t.insertarVenta(v);
+            t.modificarVenta(v.getVentaId(),v);
             
             
         } catch (ExcepcionTamara ex) {
@@ -57,20 +59,16 @@ public class ServletAltaVenta extends HttpServlet {
             
         }
         if(listaErrores == null) {
-        request.setAttribute("mensaje", "La inserción de venta se ha realizado correctamente");
+        request.setAttribute("mensaje", "La modificación de venta se ha realizado correctamente");
         request.getRequestDispatcher("listaVentas.jsp").forward(request,response);
         
         }else{
-        request.setAttribute("mensaje","La inserción de la venta no se ha podido realizar. Errores detectados: "); 
+        request.setAttribute("mensaje","La modificación de la venta no se ha podido realizar. Errores detectados: "); 
         request.setAttribute("listaErrores", listaErrores);
-        request.getRequestDispatcher("altaventa.jsp").forward(request,response);
+        request.getRequestDispatcher("modificarventa.jsp").forward(request,response);
         }
-        
-        }
-      
-    
-
-    private ArrayList<String> validarFormulario(HttpServletRequest request) {
+    }
+private ArrayList<String> validarFormulario(HttpServletRequest request) {
         ArrayList<String> listaErrores = new ArrayList();
         if(request.getParameter("nombreCliente") == null) listaErrores.add("Acceso no autorizado");
         else if(request.getParameter("nombreCliente").length() == 0) listaErrores.add("El nombre es obligatorio");
@@ -111,7 +109,6 @@ public class ServletAltaVenta extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
     }
 
     /**

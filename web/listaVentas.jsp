@@ -62,6 +62,9 @@
                 out.println("<td>");
                 out.println(Util.traducirPago(v.getFormaPago()));
                 out.println("</td>");
+                out.println("<td>");
+                out.println("<a href='modificarventa.jsp?ventaId="+ v.getVentaId()+"'>Modificar</a>");
+                out.println("</td>");
                 out.println("</tr>");
                 pos++;
             }
