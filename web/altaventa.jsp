@@ -42,10 +42,9 @@
             <label>Ciudad de domicilio:</label>
             <input type="text" name="ciudadDomicilio" value="<%=Util.convertirNullAStringVacio(request.getParameter("ciudadDomicilio"))%>"/><br>
             <label>Forma de pago</label>
-            <select name="formaPago">
-                <option value="T">Tarjeta</option>
-                <option value="E">Efectivo</option>
-            </select><br>
+            <input type='radio' name='formaPago' value='T'>Tarjeta
+            <input type='radio' name='formaPago' value='E'>Efectivo
+            <br>
             <label>Disco: </label>
             <select name="discoId">
                 <option value="0"></option>

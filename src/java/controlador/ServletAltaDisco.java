@@ -72,6 +72,14 @@ public class ServletAltaDisco extends HttpServlet {
         else if(request.getParameter("autor").length() == 0) listaErrores.add("El autor es obligatorio");
         else if(request.getParameter("autor").length() < 3) listaErrores.add("La longitud del autor debe ser mayor 2");
         
+        if(request.getParameter("anioPublicacion") == null) listaErrores.add("Acceso no autorizado");
+        else if(request.getParameter("anioPublicacion").length() == 0) listaErrores.add("El año de publicación es obligatorio");
+        else if(request.getParameter("anioPublicacion").length() > 4) listaErrores.add("El año de publicación es de 4 cifras");
+        
+        if(request.getParameter("numCanciones") == null) listaErrores.add("Acceso no autorizado");
+        else if(request.getParameter("numCanciones").length() == 0) listaErrores.add("El numero de canciones es obligatorio");
+        
+        
         if(listaErrores.size() ==0)return null;
         else return listaErrores;
     }

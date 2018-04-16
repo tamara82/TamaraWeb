@@ -38,7 +38,7 @@
                 Venta v;
                 if (request.getParameter("nombreCliente") == null){
                 Tamara t =new Tamara();
-                v = t.leerVenta(Integer.parseInt(request.getParameter("ventaId")));  //COMPROBAR LEERVENTA EN COMPONENTE
+                v = t.leerVenta(Integer.parseInt(request.getParameter("ventaId")));
                 }else{
                     v = new Venta();
                     v.setVentaId(Integer.parseInt(request.getParameter("ventaId")));
@@ -64,16 +64,27 @@
             <label>Ciudad de domicilio:</label>
             <input type="text" name="ciudadDomicilio" value="<%= Util.convertirNullAStringVacio(v.getCiudadDomicilio()) %>"/><br>
             <label>Forma de pago</label>
-            <select name="formaPago">
-                <option value="T">Tarjeta</option>
-                <option value="E">Efectivo</option>
-            </select><br>
+            <%
+                String formapago=v.getFormaPago();
+                if (formapago.equals("T")){
+                    out.println("<input type='radio' name='formaPago' value='T' checked>Tarjeta");   
+                }else{
+                    out.println("<input type='radio' name='formaPago' value='T'>Tarjeta" );
+                }
+                if (formapago.equals("E")){
+                    out.println("<input type='radio' name='formaPago' value='E' checked>Efectivo ");  
+                }else{
+                out.println("<input type='radio' name='formaPago' value='E'>Efectivo");        
+                }
+                
+            %>
+                <br>
             <label>Disco: </label>
             <select name="discoId">
                 <option value="0"></option>
             <%
-                Tamara t =new Tamara();
-                ArrayList<Disco> listaDiscos = t.leerDiscos();
+                Tamara t = new Tamara();
+                ArrayList<Disco> listaDiscos= t.leerDiscos();
                 for(Disco d : listaDiscos){
                     if (v.getDisco().getDiscoId()==d.getDiscoId()){
                             out.println("<option value='"+d.getDiscoId()+"' selected>"+d.getTitulo()+"</option>");   
