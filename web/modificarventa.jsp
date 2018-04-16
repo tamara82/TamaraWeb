@@ -80,9 +80,7 @@
                     }else{
                             out.println("<option value='"+d.getDiscoId()+"'>"+d.getTitulo()+"</option>");
                     }
-                    
-                         
-                    }
+                }
                 
             %>
             </select><br>

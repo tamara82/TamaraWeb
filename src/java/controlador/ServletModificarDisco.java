@@ -5,12 +5,9 @@
  */
 package controlador;
 
-import Utilidades.Util;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +20,7 @@ import tamara.Tamara;
  *
  * @author usuario
  */
-public class ServletAltaDisco extends HttpServlet {
+public class ServletModificarDisco extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,29 +37,30 @@ public class ServletAltaDisco extends HttpServlet {
         ArrayList<String> listaErrores= validarFormulario(request);
         try {
         Disco d = new Disco();
+        d.setDiscoId(Integer.parseInt(request.getParameter("discoId")));
         d.setTitulo(request.getParameter("titulo"));
         d.setAutor(request.getParameter("autor"));
         d.setAnioPublicacion(Integer.parseInt(request.getParameter("anioPublicacion")));
         d.setNumCanciones(Integer.parseInt(request.getParameter("numCanciones")));
         d.setEAN(request.getParameter("ean"));
         Tamara t= new Tamara();
-            t.insertarDisco(d);
-            
+            t.modificarDisco(d.getDiscoId(),d);
+            request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
         } catch (ExcepcionTamara ex) {
 //            Logger.getLogger(ServletAltaDisco.class.getName()).log(Level.SEVERE, null, ex);
             listaErrores.add(ex.getMensajeErrorUsuario());
         }
         if(listaErrores == null){
-        request.setAttribute("mensaje", "La inserción de disco se ha realizado correctamente");
+        request.setAttribute("mensaje", "La modificación del disco se ha realizado correctamente");
         request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
         
         }else{
-        request.setAttribute("mensaje","La inserción del disco no se ha podido realizar. Errores detectados: "); 
+        request.setAttribute("mensaje","La modificación del disco no se ha podido realizar. Errores detectados: "); 
         request.setAttribute("listaErrores", listaErrores);
-        request.getRequestDispatcher("altadisco.jsp").forward(request,response);
+        request.getRequestDispatcher("modificardisco.jsp").forward(request,response);
         }
     }
-    private ArrayList<String> validarFormulario(HttpServletRequest request) {
+        private ArrayList<String> validarFormulario(HttpServletRequest request) {
         ArrayList<String> listaErrores = new ArrayList();
         if(request.getParameter("titulo") == null) listaErrores.add("Acceso no autorizado");
         else if(request.getParameter("titulo").length() == 0) listaErrores.add("El titulo es obligatorio");

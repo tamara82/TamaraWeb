@@ -18,6 +18,7 @@
     </head>
     <body>
         <h1>Lista de Ventas</h1>
+        
         <%
             String mensaje = (String) request.getAttribute("mensaje");
             if(mensaje != null){
@@ -36,6 +37,15 @@
         %>
         <table align="center" border="2" cellspacing="0">
             <a href="altaventa.jsp">Alta de Venta</a><br>
+            <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI</th>
+            <th>Ciudad</th>
+            <th>Forma de pago</th>
+            <th>Disco</th>
+        </tr>
         <%
             
             Tamara tamara= new Tamara();
@@ -45,8 +55,10 @@
             int pos = 0;
             while(pos <listaVentas.size()){
                 v = listaVentas.get(pos);
-                
                 out.println("<tr>");
+                out.println("<td>");
+                out.println(v.getVentaId());
+                out.println("</td>");
                 out.println("<td>");
                 out.println(v.getNombreCliente());
                 out.println("</td>");
@@ -61,6 +73,9 @@
                 out.println("</td>");
                 out.println("<td>");
                 out.println(Util.traducirPago(v.getFormaPago()));
+                out.println("</td>");
+                out.println("<td>");
+                out.println(v.getDisco().getDiscoId());
                 out.println("</td>");
                 out.println("<td>");
                 out.println("<a href='modificarventa.jsp?ventaId="+ v.getVentaId()+"'>Modificar</a>");
