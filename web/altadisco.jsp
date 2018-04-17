@@ -36,9 +36,9 @@
             <label>Autor: </label>
             <input type="text" name="autor" value="<%=Util.convertirNullAStringVacio(request.getParameter("autor"))%>"/><br>
             <label>Año de publicacion: </label>
-            <input type="number" name="anioPublicacion" value="<%=Util.convertirNullAStringVacio(request.getParameter("anioPublicacion"))%>"/><br>
+            <input type="number" name="anioPublicacion" value="<%=request.getParameter("anioPublicacion")%>"/><br>
             <label>Número de canciones: </label>
-            <input type="number" name="numCanciones" value="<%=Util.convertirNullAStringVacio(request.getParameter("numCanciones"))%>"/><br>
+            <input type="number" name="numCanciones" value="<%=request.getParameter("numCanciones")%>"/><br>
             <label>EAN: </label>
             <input type="text" name="ean" value="<%=Util.convertirNullAStringVacio(request.getParameter("ean"))%>"/><br>
             <input type="submit" value="Aceptar"/>

@@ -4,6 +4,7 @@
     Author     : usuario
 --%>
 
+<%@page import="Utilidades.Util"%>
 <%@page import="tamara.Tamara"%>
 <%@page import="tamara.Disco"%>
 <%@page import="java.util.ArrayList"%>
@@ -54,9 +55,9 @@
             <label>Autor: </label>
             <input type="text" name="autor" value="<%= d.getAutor()%>"/><br>
             <label>Año de publicacion: </label>
-            <input type="number" name="anioPublicacion"  value="<%= d.getAnioPublicacion()%>"/><br>
+            <input type="number" name="anioPublicacion"  value="<%= Util.convertirNullAIntVacio(d.getAnioPublicacion())%>"/><br>
             <label>Número de canciones: </label>
-            <input type="number" name="numCanciones" value="<%= d.getNumCanciones()%>"/><br>
+            <input type="number" name="numCanciones" value="<%= Util.convertirNullAIntVacio(d.getNumCanciones())%>"/><br>
             <label>EAN: </label>
             <input type="text" name="ean" value="<%= d.getEAN()%>"/><br>
             <input type="submit" value="Aceptar"/>
