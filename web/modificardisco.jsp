@@ -40,10 +40,13 @@
                 d = t.leerDisco(Integer.parseInt(request.getParameter("discoId")));
                 }else{
                     d = new Disco();
+                    d.setDiscoId(Integer.parseInt(request.getParameter("discoId")));
                     d.setTitulo(request.getParameter("titulo"));
                     d.setAutor(request.getParameter("autor"));
-                    d.setAnioPublicacion(Integer.parseInt(request.getParameter("anioPublicacion")));
-                    d.setNumCanciones(Integer.parseInt(request.getParameter("numCanciones")));
+                    if (request.getParameter("anioPublicacion").equals("")) d.setAnioPublicacion(null);
+                    else d.setAnioPublicacion(Integer.parseInt(request.getParameter("anioPublicacion")));
+                    if (request.getParameter("numCanciones").equals("")) d.setNumCanciones(null);
+                    else d.setNumCanciones(Integer.parseInt(request.getParameter("numCanciones")));
                     d.setEAN(request.getParameter("ean"));
                 }
 
@@ -55,9 +58,9 @@
             <label>Autor: </label>
             <input type="text" name="autor" value="<%= d.getAutor()%>"/><br>
             <label>Año de publicacion: </label>
-            <input type="number" name="anioPublicacion"  value="<%= Util.convertirNullAIntVacio(d.getAnioPublicacion())%>"/><br>
+            <input type="number" name="anioPublicacion"  value="<%= d.getAnioPublicacion()%>"/><br>
             <label>Número de canciones: </label>
-            <input type="number" name="numCanciones" value="<%= Util.convertirNullAIntVacio(d.getNumCanciones())%>"/><br>
+            <input type="number" name="numCanciones" value="<%= d.getNumCanciones()%>"/><br>
             <label>EAN: </label>
             <input type="text" name="ean" value="<%= d.getEAN()%>"/><br>
             <input type="submit" value="Aceptar"/>

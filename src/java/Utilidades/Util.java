@@ -32,11 +32,7 @@ public class Util {
         if (cadena.equals("null")) return "";
         return cadena;
     }
-    public static Integer convertirNullAIntVacio(Integer num) {
-        if (num == null) return 0;
-        if (num.equals("null")) return 0;
-        return num;
-    }
+
     
         public static boolean esEntero(String s) {
         try { 

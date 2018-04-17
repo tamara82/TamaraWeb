@@ -39,30 +39,31 @@ public class ServletAltaDisco extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         ArrayList<String> listaErrores= validarFormulario(request);
-        try {
-        Disco d = new Disco();
-        d.setTitulo(request.getParameter("titulo"));
-        d.setAutor(request.getParameter("autor"));
-        d.setAnioPublicacion(Integer.parseInt(request.getParameter("anioPublicacion")));
-        d.setNumCanciones(Integer.parseInt(request.getParameter("numCanciones")));
-        d.setEAN(request.getParameter("ean"));
-        Tamara t =new Tamara();
-            t.insertarDisco(d);
-            
-        } catch (ExcepcionTamara ex) {
-//            Logger.getLogger(ServletAltaDisco.class.getName()).log(Level.SEVERE, null, ex);
-            listaErrores.add(ex.getMensajeErrorUsuario());
-        }
         if(listaErrores == null){
-        request.setAttribute("mensaje", "La inserción de disco se ha realizado correctamente");
-        request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
-        
+            try {
+                Disco d = new Disco();
+                d.setTitulo(request.getParameter("titulo"));
+                d.setAutor(request.getParameter("autor"));
+                d.setAnioPublicacion(Integer.parseInt(request.getParameter("anioPublicacion")));
+                d.setNumCanciones(Integer.parseInt(request.getParameter("numCanciones")));
+                d.setEAN(request.getParameter("ean"));
+                Tamara t =new Tamara();
+                t.insertarDisco(d);
+                request.setAttribute("mensaje", "La inserción de disco se ha realizado correctamente");
+                request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
+            } catch (ExcepcionTamara ex) {
+                listaErrores.add(ex.getMensajeErrorUsuario());
+                request.setAttribute("mensaje","La inserción del disco no se ha podido realizar. Errores detectados: "); 
+                request.setAttribute("listaErrores", listaErrores);
+                request.getRequestDispatcher("altadisco.jsp").forward(request,response);
+            }
         }else{
-        request.setAttribute("mensaje","La inserción del disco no se ha podido realizar. Errores detectados: "); 
-        request.setAttribute("listaErrores", listaErrores);
-        request.getRequestDispatcher("altadisco.jsp").forward(request,response);
+            request.setAttribute("mensaje","La inserción del disco no se ha podido realizar. Errores detectados: "); 
+            request.setAttribute("listaErrores", listaErrores);
+            request.getRequestDispatcher("altadisco.jsp").forward(request,response);
         }
     }
+
     private ArrayList<String> validarFormulario(HttpServletRequest request) {
         ArrayList<String> listaErrores = new ArrayList();
         if(request.getParameter("titulo") == null) listaErrores.add("Acceso no autorizado");
@@ -79,7 +80,7 @@ public class ServletAltaDisco extends HttpServlet {
         
         if(request.getParameter("numCanciones") == null) listaErrores.add("Acceso no autorizado");
         else if(request.getParameter("numCanciones").length() == 0) listaErrores.add("El numero de canciones es obligatorio");
-        
+        else if(Integer.parseInt(request.getParameter("numCanciones")) == 0) listaErrores.add("El numero de canciones debe ser mayor que cero");
         
         if(listaErrores.size() ==0)return null;
         else return listaErrores;

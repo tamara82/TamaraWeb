@@ -35,44 +35,52 @@ public class ServletModificarDisco extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         ArrayList<String> listaErrores= validarFormulario(request);
-        try {
-        Disco d = new Disco();
-        d.setDiscoId(Integer.parseInt(request.getParameter("discoId")));
-        d.setTitulo(request.getParameter("titulo"));
-        d.setAutor(request.getParameter("autor"));
-        d.setAnioPublicacion(Integer.parseInt(request.getParameter("anioPublicacion")));
-        d.setNumCanciones(Integer.parseInt(request.getParameter("numCanciones")));
-        d.setEAN(request.getParameter("ean"));
-        Tamara t= new Tamara();
-            t.modificarDisco(d.getDiscoId(),d);
-            request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
-        } catch (ExcepcionTamara ex) {
-//            Logger.getLogger(ServletAltaDisco.class.getName()).log(Level.SEVERE, null, ex);
-            listaErrores.add(ex.getMensajeErrorUsuario());
-        }
-        if(listaErrores == null){
-        request.setAttribute("mensaje", "La modificación del disco se ha realizado correctamente");
-        request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
-        
-        }else{
-        request.setAttribute("mensaje","La modificación del disco no se ha podido realizar. Errores detectados: "); 
-        request.setAttribute("listaErrores", listaErrores);
-        request.getRequestDispatcher("modificardisco.jsp").forward(request,response);
+        if (listaErrores == null) {
+            try {
+                Disco d = new Disco();
+                d.setDiscoId(Integer.parseInt(request.getParameter("discoId")));
+                d.setTitulo(request.getParameter("titulo"));
+                d.setAutor(request.getParameter("autor"));
+                d.setAnioPublicacion(Integer.parseInt(request.getParameter("anioPublicacion")));
+                d.setNumCanciones(Integer.parseInt(request.getParameter("numCanciones")));
+                d.setEAN(request.getParameter("ean"));
+                Tamara t = new Tamara();
+                t.modificarDisco(d.getDiscoId(), d);
+                request.setAttribute("mensaje", "La modificación del disco se ha realizado correctamente");
+                request.getRequestDispatcher("listaDiscos.jsp").forward(request, response);
+            } catch (ExcepcionTamara ex) {
+                listaErrores.add(ex.getMensajeErrorUsuario());
+                request.setAttribute("mensaje", "La modificación del disco no se ha podido realizar. Errores detectados: ");
+                request.setAttribute("listaErrores", listaErrores);
+                request.getRequestDispatcher("modificardisco.jsp").forward(request, response);
+            }
+        } else {
+            request.setAttribute("mensaje", "La modificación del disco no se ha podido realizar. Errores detectados: ");
+            request.setAttribute("listaErrores", listaErrores);
+            request.getRequestDispatcher("modificardisco.jsp").forward(request, response);
         }
     }
         private ArrayList<String> validarFormulario(HttpServletRequest request) {
-        ArrayList<String> listaErrores = new ArrayList();
-        if(request.getParameter("titulo") == null) listaErrores.add("Acceso no autorizado");
-        else if(request.getParameter("titulo").length() == 0) listaErrores.add("El titulo es obligatorio");
-        else if(request.getParameter("titulo").length() < 3) listaErrores.add("La longitud del titulo debe ser mayor 2");
-        
-        if(request.getParameter("autor") == null) listaErrores.add("Acceso no autorizado");
-        else if(request.getParameter("autor").length() == 0) listaErrores.add("El autor es obligatorio");
-        else if(request.getParameter("autor").length() < 3) listaErrores.add("La longitud del autor debe ser mayor 2");
-        
-        if(listaErrores.size() ==0)return null;
-        else return listaErrores;
-    }
+            ArrayList<String> listaErrores = new ArrayList();
+            if(request.getParameter("titulo") == null) listaErrores.add("Acceso no autorizado");
+            else if(request.getParameter("titulo").length() == 0) listaErrores.add("El titulo es obligatorio");
+            else if(request.getParameter("titulo").length() < 3) listaErrores.add("La longitud del titulo debe ser mayor 2");
+
+            if(request.getParameter("autor") == null) listaErrores.add("Acceso no autorizado");
+            else if(request.getParameter("autor").length() == 0) listaErrores.add("El autor es obligatorio");
+            else if(request.getParameter("autor").length() < 3) listaErrores.add("La longitud del autor debe ser mayor 2");
+
+            if(request.getParameter("anioPublicacion") == null) listaErrores.add("Acceso no autorizado");
+            else if(request.getParameter("anioPublicacion").length() == 0) listaErrores.add("El año de publicación es obligatorio");
+            else if(request.getParameter("anioPublicacion").length() > 4) listaErrores.add("El año de publicación es de 4 cifras");
+
+            if(request.getParameter("numCanciones") == null) listaErrores.add("Acceso no autorizado");
+            else if(request.getParameter("numCanciones").length() == 0) listaErrores.add("El numero de canciones es obligatorio");
+            else if(Integer.parseInt(request.getParameter("numCanciones")) == 0) listaErrores.add("El numero de canciones debe ser mayor que cero");
+
+            if(listaErrores.size() ==0)return null;
+            else return listaErrores;
+        }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
