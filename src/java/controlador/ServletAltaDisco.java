@@ -19,6 +19,7 @@ import tamara.Disco;
 import tamara.ExcepcionTamara;
 import tamara.Tamara;
 
+
 /**
  *
  * @author usuario
@@ -45,7 +46,7 @@ public class ServletAltaDisco extends HttpServlet {
         d.setAnioPublicacion(Integer.parseInt(request.getParameter("anioPublicacion")));
         d.setNumCanciones(Integer.parseInt(request.getParameter("numCanciones")));
         d.setEAN(request.getParameter("ean"));
-        Tamara t= new Tamara();
+        Tamara t =new Tamara();
             t.insertarDisco(d);
             
         } catch (ExcepcionTamara ex) {
