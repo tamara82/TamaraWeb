@@ -16,6 +16,10 @@
         <servlet-name>ServletModificarDisco</servlet-name>
         <servlet-class>controlador.ServletModificarDisco</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletEliminarDisco</servlet-name>
+        <servlet-class>controlador.ServletEliminarDisco</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAltaVenta</servlet-name>
         <url-pattern>/ServletAltaVenta</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>ServletModificarDisco</servlet-name>
         <url-pattern>/ServletModificarDisco</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEliminarDisco</servlet-name>
+        <url-pattern>/ServletEliminarDisco</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

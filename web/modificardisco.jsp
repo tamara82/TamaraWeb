@@ -63,7 +63,7 @@
             <input type="number" name="numCanciones" value="<%= d.getNumCanciones()%>"/><br>
             <label>EAN: </label>
             <input type="text" name="ean" value="<%= d.getEAN()%>"/><br>
-            <input type="submit" value="Aceptar"/>
+            <input type="submit" value="Modificar"/>
             <a href="listaDiscos.jsp"><input type="button" value="Cancelar"/></a><br>
         </form>
     </body>

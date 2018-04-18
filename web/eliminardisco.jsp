@@ -1,21 +1,21 @@
 <%-- 
-    Document   : altaCliente
-    Created on : 05-abr-2018, 15:58:14
+    Document   : eliminardisco
+    Created on : 18-abr-2018, 18:42:04
     Author     : usuario
 --%>
 
+<%@page import="tamara.Tamara"%>
+<%@page import="tamara.Disco"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Utilidades.Util"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Alta de disco</title>
+        <title>Eliminar Disco</title>
     </head>
     <body>
-        <form method="post" action="ServletAltaDisco">
-            <h1>Alta de Disco</h1>
+        <h1>Eliminar Disco</h1>
             <%
                 String mensaje = (String) request.getAttribute("mensaje");
                 if(mensaje != null){
@@ -31,17 +31,24 @@
                     
                 }
             %>
+        <%
+            Disco d;
+            Tamara t =new Tamara();
+            d = t.leerDisco(Integer.parseInt(request.getParameter("discoId")));
+        %>
+            <form method="post" action="ServletEliminarDisco">
+            <input type="hidden" name="discoId" value="<%= d.getDiscoId() %>">
             <label>Titulo: </label>
-            <input type="text" name="titulo" value="<%=Util.convertirNullAStringVacio(request.getParameter("titulo"))%>"/><br>
+            <input type="text" name="titulo" disabled value="<%= d.getTitulo()%>"/><br>
             <label>Autor: </label>
-            <input type="text" name="autor" value="<%=Util.convertirNullAStringVacio(request.getParameter("autor"))%>"/><br>
+            <input type="text" name="autor" disabled value="<%= d.getAutor()%>"/><br>
             <label>Año de publicacion: </label>
-            <input type="number" name="anioPublicacion" value="<%=request.getParameter("anioPublicacion")%>"/><br>
+            <input type="number" name="anioPublicacion" disabled value="<%= d.getAnioPublicacion()%>"/><br>
             <label>Número de canciones: </label>
-            <input type="number" name="numCanciones" value="<%=request.getParameter("numCanciones")%>"/><br>
+            <input type="number" name="numCanciones" disabled value="<%= d.getNumCanciones()%>"/><br>
             <label>EAN: </label>
-            <input type="text" name="ean" value="<%=Util.convertirNullAStringVacio(request.getParameter("ean"))%>"/><br>
-            <input type="submit" value="Crear"/>
+            <input type="text" name="ean" disabled value="<%= d.getEAN()%>"/><br>
+            <input type="submit" value="Eliminar"/>
             <a href="listaDiscos.jsp"><input type="button" value="Cancelar"/></a><br>
         </form>
     </body>

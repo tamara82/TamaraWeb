@@ -73,6 +73,12 @@
                 out.println("<td>");
                 out.println("<a href='modificardisco.jsp?discoId="+ d.getDiscoId()+"'>Modificar</a>");
                 out.println("</td>");
+                out.println("<td>");
+                out.println("<a href='eliminardisco.jsp?discoId="+ d.getDiscoId()+"'>Eliminar</a>");
+                out.println("</td>");
+                out.println("<td>");
+                out.println("<a href='detalledisco.jsp?discoId="+ d.getDiscoId()+"'>Detalle</a>");
+                out.println("</td>");
                 out.println("</tr>");
                 pos++;
             }
