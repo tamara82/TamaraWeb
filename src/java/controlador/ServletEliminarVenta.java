@@ -15,12 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import tamara.Disco;
 import tamara.ExcepcionTamara;
 import tamara.Tamara;
+import tamara.Venta;
 
 /**
  *
  * @author usuario
  */
-public class ServletEliminarDisco extends HttpServlet {
+public class ServletEliminarVenta extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,21 +35,22 @@ public class ServletEliminarDisco extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ArrayList<String> listaErrores = new ArrayList();
+        ArrayList<String> listaErrores= new ArrayList();
         try {
-            Disco d = new Disco();
-            d.setDiscoId(Integer.parseInt(request.getParameter("discoId")));
-            Tamara t = new Tamara();
-            t.eliminarDisco(d.getDiscoId());
-            request.setAttribute("mensaje", "La eliminación del disco se ha realizado correctamente");
-            request.getRequestDispatcher("listaDiscos.jsp").forward(request, response);
+            Tamara t= new Tamara();
+            Venta v = new Venta();
+            v.setVentaId(Integer.parseInt(request.getParameter("ventaId")));
+            t.eliminarVenta(v.getVentaId());
+            request.setAttribute("mensaje", "La modificación de venta se ha realizado correctamente");
+            request.getRequestDispatcher("listaVentas.jsp").forward(request,response);
+            
         } catch (ExcepcionTamara ex) {
             listaErrores.add(ex.getMensajeErrorUsuario());
-            request.setAttribute("mensaje", "La eliminación del disco no se ha podido realizar. Errores detectados: ");
+            request.setAttribute("mensaje","La modificación de la venta no se ha podido realizar. Errores detectados: "); 
             request.setAttribute("listaErrores", listaErrores);
-            request.getRequestDispatcher("eliminardisco.jsp").forward(request, response);
-            }
-
+            request.getRequestDispatcher("eliminarventa.jsp").forward(request,response);
+        }
+    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

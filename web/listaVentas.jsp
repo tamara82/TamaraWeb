@@ -80,6 +80,12 @@
                 out.println("<td>");
                 out.println("<a href='modificarventa.jsp?ventaId="+ v.getVentaId()+"'>Modificar</a>");
                 out.println("</td>");
+                out.println("<td>");
+                out.println("<a href='eliminarventa.jsp?ventaId="+ v.getVentaId()+"'>Eliminar</a>");
+                out.println("</td>");
+                out.println("<td>");
+                out.println("<a href='detalleventa.jsp?ventaId="+ v.getVentaId()+"'>Detalle</a>");
+                out.println("</td>");
                 out.println("</tr>");
                 pos++;
             }

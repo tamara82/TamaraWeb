@@ -20,6 +20,14 @@
         <servlet-name>ServletEliminarDisco</servlet-name>
         <servlet-class>controlador.ServletEliminarDisco</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>eliminarventa</servlet-name>
+        <servlet-class>eliminarventa</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletEliminarVenta</servlet-name>
+        <servlet-class>controlador.ServletEliminarVenta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAltaVenta</servlet-name>
         <url-pattern>/ServletAltaVenta</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>ServletEliminarDisco</servlet-name>
         <url-pattern>/ServletEliminarDisco</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>eliminarventa</servlet-name>
+        <url-pattern>/eliminarventa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEliminarVenta</servlet-name>
+        <url-pattern>/ServletEliminarVenta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
