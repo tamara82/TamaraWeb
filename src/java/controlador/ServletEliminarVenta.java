@@ -41,12 +41,12 @@ public class ServletEliminarVenta extends HttpServlet {
             Venta v = new Venta();
             v.setVentaId(Integer.parseInt(request.getParameter("ventaId")));
             t.eliminarVenta(v.getVentaId());
-            request.setAttribute("mensaje", "La modificación de venta se ha realizado correctamente");
+            request.setAttribute("mensaje", "La eliminación se ha realizado correctamente");
             request.getRequestDispatcher("listaVentas.jsp").forward(request,response);
             
         } catch (ExcepcionTamara ex) {
             listaErrores.add(ex.getMensajeErrorUsuario());
-            request.setAttribute("mensaje","La modificación de la venta no se ha podido realizar. Errores detectados: "); 
+            request.setAttribute("mensaje","La eliminación no se ha podido realizar. Errores detectados: "); 
             request.setAttribute("listaErrores", listaErrores);
             request.getRequestDispatcher("eliminarventa.jsp").forward(request,response);
         }

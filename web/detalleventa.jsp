@@ -14,12 +14,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Detalle Venta</title>
     </head>
     <body>
-        <h1>Eliminar Venta</h1>
-            
-
+        <h1>Detalle Venta</h1>
+        
             <%
                 Venta v;
                 Tamara t =new Tamara();
@@ -68,6 +67,5 @@
             </select><br>
             <a href="listaVentas.jsp"><input type="button" value="Volver"/></a><br>
         </form>
-    </body>
     </body>
 </html>
