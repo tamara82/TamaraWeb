@@ -25,7 +25,7 @@
                 v = t.leerVenta(Integer.parseInt(request.getParameter("ventaId")));
             %>
             <form method="post">
-            <input type="hidden" name="ventaId" value="<%= v.getVentaId() %>">
+            <input type="hidden" name="ventaId" value="<%= v.getVentaId() %>"/>
             <label>Nombre del cliente:</label>
             <input type="text" name="nombreCliente" disabled value="<%= v.getNombreCliente() %>"/><br>
             <label>Apellido del cliente:</label>
@@ -57,9 +57,9 @@
                 ArrayList<Disco> listaDiscos= t.leerDiscos();
                 for(Disco s : listaDiscos){
                     if (v.getDisco().getDiscoId()==s.getDiscoId()){
-                            out.println("<option value='"+s.getDiscoId()+"' selected>"+s.getTitulo()+"disabled</option>");   
+                            out.println("<option value='"+s.getDiscoId()+"' selected>"+s.getTitulo()+" disabled</option>");   
                     }else{
-                            out.println("<option value='"+s.getDiscoId()+"'>"+s.getTitulo()+"disabled</option>");
+                            out.println("<option value='"+s.getDiscoId()+"'>"+s.getTitulo()+" disabled</option>");
                     }
                 }
                 
