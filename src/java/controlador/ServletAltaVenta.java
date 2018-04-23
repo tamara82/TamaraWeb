@@ -36,35 +36,33 @@ public class ServletAltaVenta extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         ArrayList<String> listaErrores= validarFormulario(request);
-        try {
-            Tamara t= new Tamara();
-            Venta v = new Venta();
-        Disco d = new Disco();
-        v.setNombreCliente(request.getParameter("nombreCliente"));
-        v.setApellidoCliente(request.getParameter("apellidoCliente"));
-        v.setDni(request.getParameter("dni"));
-        v.setCiudadDomicilio(request.getParameter("ciudadDomicilio"));
-        v.setFormaPago(request.getParameter("formaPago"));
-        d.setDiscoId(Integer.parseInt(request.getParameter("discoId")));
-        v.setDisco(d);
-            t.insertarVenta(v);
-            
-            
-        } catch (ExcepcionTamara ex) {
-//          Logger.getLogger(ServletAltaVenta.class.getName()).log(Level.SEVERE, null, ex);
-            
-            listaErrores.add(ex.getMensajeErrorUsuario());
-            
-        }
         if(listaErrores == null) {
-        request.setAttribute("mensaje", "La inserción de venta se ha realizado correctamente");
-        request.getRequestDispatcher("listaVentas.jsp").forward(request,response);
-        
-        }else{
-        request.setAttribute("mensaje","La inserción de la venta no se ha podido realizar. Errores detectados: "); 
-        request.setAttribute("listaErrores", listaErrores);
-        request.getRequestDispatcher("altaventa.jsp").forward(request,response);
-        }
+            try {
+                Tamara t= new Tamara();
+                Venta v = new Venta();
+                Disco d = new Disco();
+                v.setNombreCliente(request.getParameter("nombreCliente"));
+                v.setApellidoCliente(request.getParameter("apellidoCliente"));
+                v.setDni(request.getParameter("dni"));
+                v.setCiudadDomicilio(request.getParameter("ciudadDomicilio"));
+                v.setFormaPago(request.getParameter("formaPago"));
+                d.setDiscoId(Integer.parseInt(request.getParameter("discoId")));
+                v.setDisco(d);
+                t.insertarVenta(v);
+                request.setAttribute("mensaje", "La inserción de venta se ha realizado correctamente");
+                request.getRequestDispatcher("listaVentas.jsp").forward(request,response);    
+            
+            } catch (ExcepcionTamara ex) {
+                listaErrores.add(ex.getMensajeErrorUsuario());
+                request.setAttribute("mensaje","La inserción de la venta no se ha podido realizar. Errores detectados: "); 
+                request.setAttribute("listaErrores", listaErrores);
+                request.getRequestDispatcher("altaventa.jsp").forward(request,response);
+            }
+            }else{
+            request.setAttribute("mensaje","La inserción de la venta no se ha podido realizar. Errores detectados: "); 
+            request.setAttribute("listaErrores", listaErrores);
+            request.getRequestDispatcher("altaventa.jsp").forward(request,response);
+            }
         
         }
       
