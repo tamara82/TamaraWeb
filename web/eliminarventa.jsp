@@ -66,15 +66,15 @@
             %>
                 <br>
             <label>Disco: </label>
-            <select name="discoId">
-                <option value="0"></option>
+            <select name="discoId" disabled>
             <%
-                ArrayList<Disco> listaDiscos= t.leerDiscos();
+                Tamara tamara =new Tamara();
+                ArrayList<Disco> listaDiscos= tamara.leerDiscos();
                 for(Disco s : listaDiscos){
                     if (v.getDisco().getDiscoId()==s.getDiscoId()){
-                            out.println("<option value='"+s.getDiscoId()+"' selected>"+s.getTitulo()+"disabled</option>");   
+                            out.println("<option value='"+s.getDiscoId()+"'selected>"+s.getTitulo()+"</option>");   
                     }else{
-                            out.println("<option value='"+s.getDiscoId()+"'>"+s.getTitulo()+"disabled</option>");
+                            out.println("<option value='"+s.getDiscoId()+"'>"+s.getTitulo()+"</option>");
                     }
                 }
                 
