@@ -59,9 +59,9 @@ public class ServletAltaVenta extends HttpServlet {
                 request.getRequestDispatcher("altaventa.jsp").forward(request,response);
             }
             }else{
-            request.setAttribute("mensaje","La inserción de la venta no se ha podido realizar. Errores detectados: "); 
-            request.setAttribute("listaErrores", listaErrores);
-            request.getRequestDispatcher("altaventa.jsp").forward(request,response);
+                request.setAttribute("mensaje","La inserción de la venta no se ha podido realizar. Errores detectados: "); 
+                request.setAttribute("listaErrores", listaErrores);
+                request.getRequestDispatcher("altaventa.jsp").forward(request,response);
             }
         
         }
@@ -73,6 +73,14 @@ public class ServletAltaVenta extends HttpServlet {
         if(request.getParameter("nombreCliente") == null) listaErrores.add("Acceso no autorizado");
         else if(request.getParameter("nombreCliente").length() == 0) listaErrores.add("El nombre es obligatorio");
         else if(request.getParameter("nombreCliente").length() < 3) listaErrores.add("La longitud del nombre debe ser mayor 2");
+        
+        if(request.getParameter("apellidoCliente") == null) listaErrores.add("Acceso no autorizado");
+        else if(request.getParameter("apellidoCliente").length() == 0) listaErrores.add("El apellido es obligatorio");
+        else if(request.getParameter("apellidoCliente").length() < 3) listaErrores.add("La longitud del apellido debe ser mayor 2");
+        
+        if(request.getParameter("dni") == null) listaErrores.add("Acceso no autorizado");
+        else if(request.getParameter("dni").length() == 0) listaErrores.add("El dni es obligatorio");
+        else if(request.getParameter("dni").length() != 9) listaErrores.add("La longitud del dni debe ser 9");
         
         if(request.getParameter("discoId") == null) listaErrores.add("Acceso no autorizado");
         else if(request.getParameter("discoId").length() == 0) listaErrores.add("Acceso no autorizado");

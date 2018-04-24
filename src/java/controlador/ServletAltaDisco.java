@@ -82,6 +82,10 @@ public class ServletAltaDisco extends HttpServlet {
         else if(request.getParameter("numCanciones").length() == 0) listaErrores.add("El numero de canciones es obligatorio");
         else if(Integer.parseInt(request.getParameter("numCanciones")) == 0) listaErrores.add("El numero de canciones debe ser mayor que cero");
         
+        if(request.getParameter("ean") == null) listaErrores.add("Acceso no autorizado");
+        else if(request.getParameter("ean").length() == 0) listaErrores.add("El EAN es obligatorio");
+        else if(request.getParameter("ean").length() != 13) listaErrores.add("El numero de digitos del EAN debe ser 13");
+        
         if(listaErrores.size() ==0)return null;
         else return listaErrores;
     }

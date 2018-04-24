@@ -15,6 +15,7 @@
     </head>
     <body>
         <h1>Alta de Usuario</h1>
+        <form method="post" action="ServletAltaUsuario">
         <%
                 String mensaje = (String) request.getAttribute("mensaje");
                 if(mensaje != null){
@@ -29,13 +30,13 @@
                     }
                 }
             %>
-        <form method="post" action="ServletAltaUsuario">
+        
             <label>Usuario: </label>
-            <input type="text" name="usuario" value="<%=Util.convertirNullAStringVacio(request.getParameter("usuario"))%>"/><br>
+            <input type="text" name="nombre" value="<%=Util.convertirNullAStringVacio(request.getParameter("nombre"))%>"/><br>
             <label>Contraseña: </label>
             <input type="password" name="contrasena" value="<%=Util.convertirNullAStringVacio(request.getParameter("contrasena"))%>"><br>
             <label>Repetir contraseña: </label>
-            <input type="password" name="repetirContrasena" value="<%=Util.convertirNullAStringVacio(request.getParameter("repetircontrasena"))%>"><br>
+            <input type="password" name="repetirContrasena" value="<%=Util.convertirNullAStringVacio(request.getParameter("repetirContrasena"))%>"><br>
             <label>Perfil: </label>
             <input type="radio" name="perfil" value="A">Administrador
             <input type="radio" name="perfil" value="N">Usuario normal<br>

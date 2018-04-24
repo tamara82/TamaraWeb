@@ -5,8 +5,11 @@
  */
 package controlador;
 
+import Utilidades.Util;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,20 +40,14 @@ public class ServletAltaUsuario extends HttpServlet {
         ArrayList<String> listaErrores= validarFormulario(request);
         if(listaErrores == null){
             try {
-            Usuario usuario=new Usuario();
-            usuario.setUsuarioId(Integer.parseInt(request.getParameter("usuario_id")));
-            usuario.setNombre(request.getParameter("usuario"));
-            if(request.getParameter("contrasena").equals(request.getParameter("repetircontrasena"))){
-                usuario.setContrasena(request.getParameter("contrasena"));
-            }else{
-            request.setAttribute("mensaje", "No ha repetido contraseña correctamente");
-            request.getRequestDispatcher("altausuario.jsp").forward(request,response);
-            }
-            usuario.setPerfil(request.getParameter("perfil"));
-            Tamara t =new Tamara();
-            t.insertarUsuario(usuario);
-            request.setAttribute("mensaje", "La creación del usuario se ha realizado correctamente");
-            request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
+                Usuario usuario=new Usuario();
+                usuario.setNombre(request.getParameter("nombre"));
+                usuario.setContrasena(Util.calcularHash(request.getParameter("contrasena")));
+                usuario.setPerfil(request.getParameter("perfil"));
+                Tamara t =new Tamara();
+                t.insertarUsuario(usuario);
+                request.setAttribute("mensaje", "La creación del usuario se ha realizado correctamente");
+                request.getRequestDispatcher("index.jsp").forward(request,response);
             } catch (ExcepcionTamara ex) {
                 listaErrores.add(ex.getMensajeErrorUsuario());
                 request.setAttribute("mensaje","La creación del usuario no se ha podido realizar. Errores detectados: "); 
@@ -70,8 +67,15 @@ public class ServletAltaUsuario extends HttpServlet {
         else if(request.getParameter("nombre").length() < 3) listaErrores.add("La longitud del nombre debe ser mayor 2");
         
         if(request.getParameter("contrasena") == null) listaErrores.add("Acceso no autorizado");
-        else if(request.getParameter("contrasena").length() == 0) listaErrores.add("La contraseña es obligatorio");
+        else if(request.getParameter("contrasena").length() == 0) listaErrores.add("La contraseña es obligatoria");
         else if(request.getParameter("contrasena").length() < 3) listaErrores.add("La longitud de la contraseña debe ser mayor 2");
+        
+        if(request.getParameter("repetirContrasena") == null) listaErrores.add("Acceso no autorizado");
+        else if(request.getParameter("repetirContrasena").length() == 0) listaErrores.add("Repetir contraseña es obligatorio");
+        else if(!request.getParameter("contrasena").equals(request.getParameter("repetirContrasena")) ) listaErrores.add("Contraseña y repetir cpntraseña no coinciden");
+        
+        if(request.getParameter("perfil") == null) listaErrores.add("Acceso no autorizado");
+        else if(request.getParameter("perfil").length() == 0) listaErrores.add("La contraseña es obligatoria");
         
         if(listaErrores.size() ==0)return null;
         else return listaErrores;
