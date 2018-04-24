@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Alta de Venta</title>
     </head>
     <body>
         <form method="post" action="ServletAltaVenta">
@@ -30,7 +30,6 @@
                         out.println("<p style='color:red;'>" + m + "</p>");
                         }    
                     }
-                    
                 }
             %>
             <label>Nombre del cliente:</label>

@@ -28,6 +28,10 @@
         <servlet-name>ServletEliminarVenta</servlet-name>
         <servlet-class>controlador.ServletEliminarVenta</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletAltaUsuario</servlet-name>
+        <servlet-class>controlador.ServletAltaUsuario</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAltaVenta</servlet-name>
         <url-pattern>/ServletAltaVenta</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>ServletEliminarVenta</servlet-name>
         <url-pattern>/ServletEliminarVenta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAltaUsuario</servlet-name>
+        <url-pattern>/ServletAltaUsuario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
