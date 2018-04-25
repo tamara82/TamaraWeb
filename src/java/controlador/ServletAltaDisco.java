@@ -38,31 +38,34 @@ public class ServletAltaDisco extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ArrayList<String> listaErrores= validarFormulario(request);
-        if(listaErrores == null){
+        ArrayList<String> listaErrores = null; 
             try {
-                Disco d = new Disco();
-                d.setTitulo(request.getParameter("titulo"));
-                d.setAutor(request.getParameter("autor"));
-                d.setAnioPublicacion(Integer.parseInt(request.getParameter("anioPublicacion")));
-                d.setNumCanciones(Integer.parseInt(request.getParameter("numCanciones")));
-                d.setEAN(request.getParameter("ean"));
-                Tamara t =new Tamara();
-                t.insertarDisco(d);
-                request.setAttribute("mensaje", "La inserción de disco se ha realizado correctamente");
-                request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
+                listaErrores= validarFormulario(request);
+                    if(listaErrores == null){
+                        Disco d = new Disco();
+                        d.setTitulo(request.getParameter("titulo"));
+                        d.setAutor(request.getParameter("autor"));
+                        d.setAnioPublicacion(Integer.parseInt(request.getParameter("anioPublicacion")));
+                        d.setNumCanciones(Integer.parseInt(request.getParameter("numCanciones")));
+                        d.setEAN(request.getParameter("ean"));
+                        Tamara t =new Tamara();
+                        t.insertarDisco(d);
+                        request.setAttribute("mensaje", "La inserción de disco se ha realizado correctamente");
+                        request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
+                    }else{
+                        request.setAttribute("mensaje","La inserción del disco no se ha podido realizar. Errores detectados: "); 
+                        request.setAttribute("listaErrores", listaErrores);
+                        request.getRequestDispatcher("altadisco.jsp").forward(request,response);
+                    }
             } catch (ExcepcionTamara ex) {
+                listaErrores = new ArrayList(); 
                 listaErrores.add(ex.getMensajeErrorUsuario());
                 request.setAttribute("mensaje","La inserción del disco no se ha podido realizar. Errores detectados: "); 
                 request.setAttribute("listaErrores", listaErrores);
                 request.getRequestDispatcher("altadisco.jsp").forward(request,response);
             }
-        }else{
-            request.setAttribute("mensaje","La inserción del disco no se ha podido realizar. Errores detectados: "); 
-            request.setAttribute("listaErrores", listaErrores);
-            request.getRequestDispatcher("altadisco.jsp").forward(request,response);
         }
-    }
+    
 
     private ArrayList<String> validarFormulario(HttpServletRequest request) {
         ArrayList<String> listaErrores = new ArrayList();

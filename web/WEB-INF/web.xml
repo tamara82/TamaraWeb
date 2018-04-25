@@ -32,6 +32,10 @@
         <servlet-name>ServletAltaUsuario</servlet-name>
         <servlet-class>controlador.ServletAltaUsuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletAutenticador</servlet-name>
+        <servlet-class>controlador.ServletAutenticador</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAltaVenta</servlet-name>
         <url-pattern>/ServletAltaVenta</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>ServletAltaUsuario</servlet-name>
         <url-pattern>/ServletAltaUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAutenticador</servlet-name>
+        <url-pattern>/ServletAutenticador</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

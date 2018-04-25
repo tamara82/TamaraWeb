@@ -37,13 +37,11 @@ public class ServletAltaUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ArrayList<String> listaErrores= validarFormulario(request);
-        if(listaErrores == null){
+        ArrayList<String> listaErrores = null; 
             try {
-                Tamara t =new Tamara();
-                Usuario u= new Usuario();
-                u = t.leerUsuario(request.getParameter("nombre"));
-                if(u.getContrasena().equals("")){
+                listaErrores= validarFormulario(request);
+                if(listaErrores == null){
+                    Tamara t =new Tamara();
                     Usuario usuario= new Usuario();
                     usuario.setNombre(request.getParameter("nombre"));
                     usuario.setContrasena(Util.calcularHash(request.getParameter("contrasena")));
@@ -51,18 +49,19 @@ public class ServletAltaUsuario extends HttpServlet {
                     t.insertarUsuario(usuario);
                     request.setAttribute("mensaje", "La creación del usuario se ha realizado correctamente");
                     request.getRequestDispatcher("index.jsp").forward(request,response);
+                }else{
+                    request.setAttribute("mensaje","La creación de usuario no se ha podido realizar. Errores detectados: "); 
+                    request.setAttribute("listaErrores", listaErrores);
+                    request.getRequestDispatcher("altausuario.jsp").forward(request,response);
                 }
             } catch (ExcepcionTamara ex) {
+                listaErrores = new ArrayList();
                 listaErrores.add(ex.getMensajeErrorUsuario());
                 request.setAttribute("mensaje","La creación del usuario no se ha podido realizar. Errores detectados: "); 
                 request.setAttribute("listaErrores", listaErrores);
                 request.getRequestDispatcher("altausuario.jsp").forward(request,response);
             }
-        }else{
-            request.setAttribute("mensaje","La inserción del disco no se ha podido realizar. Errores detectados: "); 
-            request.setAttribute("listaErrores", listaErrores);
-            request.getRequestDispatcher("altausuario.jsp").forward(request,response);
-        }
+        
     }
         private ArrayList<String> validarFormulario(HttpServletRequest request) {
         ArrayList<String> listaErrores = new ArrayList();
