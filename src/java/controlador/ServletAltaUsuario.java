@@ -40,14 +40,18 @@ public class ServletAltaUsuario extends HttpServlet {
         ArrayList<String> listaErrores= validarFormulario(request);
         if(listaErrores == null){
             try {
-                Usuario usuario=new Usuario();
-                usuario.setNombre(request.getParameter("nombre"));
-                usuario.setContrasena(Util.calcularHash(request.getParameter("contrasena")));
-                usuario.setPerfil(request.getParameter("perfil"));
                 Tamara t =new Tamara();
-                t.insertarUsuario(usuario);
-                request.setAttribute("mensaje", "La creación del usuario se ha realizado correctamente");
-                request.getRequestDispatcher("index.jsp").forward(request,response);
+                Usuario u= new Usuario();
+                u = t.leerUsuario(request.getParameter("nombre"));
+                if(u.getContrasena().equals("")){
+                    Usuario usuario= new Usuario();
+                    usuario.setNombre(request.getParameter("nombre"));
+                    usuario.setContrasena(Util.calcularHash(request.getParameter("contrasena")));
+                    usuario.setPerfil(request.getParameter("perfil"));
+                    t.insertarUsuario(usuario);
+                    request.setAttribute("mensaje", "La creación del usuario se ha realizado correctamente");
+                    request.getRequestDispatcher("index.jsp").forward(request,response);
+                }
             } catch (ExcepcionTamara ex) {
                 listaErrores.add(ex.getMensajeErrorUsuario());
                 request.setAttribute("mensaje","La creación del usuario no se ha podido realizar. Errores detectados: "); 
