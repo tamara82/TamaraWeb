@@ -35,31 +35,28 @@ public class ServletAutenticador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ArrayList<String> listaErrores = null; 
-            try {
-                String cuenta = request.getParameter("usuario");
-                String lacontrasena = Util.calcularHash(request.getParameter("contrasena"));
-
-                Tamara t = new Tamara();
-                Usuario u = t.leerUsuario(cuenta);
-                if(u.getNombre().equals(cuenta) && u.getContrasena().equals(lacontrasena)){
+        try {
+            String cuenta = request.getParameter("usuario");
+            String lacontrasena = Util.calcularHash(request.getParameter("contrasena"));
+            Tamara t = new Tamara();
+            Usuario u = t.leerUsuario(cuenta);
+                if(cuenta.equals("")){
+                    request.setAttribute("mensaje","El usuario es obligatorio"); 
+                    request.getRequestDispatcher("index.jsp").forward(request,response);
+                }else if(u==null){
+                    request.setAttribute("mensaje","El usuario no existe"); 
+                    request.getRequestDispatcher("index.jsp").forward(request,response);    
+                }else if(!u.getContrasena().equals(lacontrasena)){
+                    request.setAttribute("mensaje", "Contraseña incorrecta");
+                    request.getRequestDispatcher("index.jsp").forward(request,response);
+                }else{
                     request.setAttribute("mensaje", "Bienvenido/a");
                     request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
-                }else{
-                    listaErrores = new ArrayList();
-                    request.setAttribute("listaErrores", listaErrores);
-                    request.setAttribute("listaErrores", listaErrores);
-                    listaErrores.add("el usuario no existe o la contraseña es incorrecta");
-                    request.getRequestDispatcher("index.jsp").forward(request,response);
                 } 
-            
-                } catch (ExcepcionTamara ex) {
-                    listaErrores = new ArrayList();
-                    listaErrores.add(ex.getMensajeErrorUsuario());
-                    request.setAttribute("mensaje","Acceso denegado: las credenciales son erróneas"); 
-                    request.setAttribute("listaErrores", listaErrores);
+            } catch (ExcepcionTamara ex) {
+                    request.setAttribute("mensaje","Hola"); 
                     request.getRequestDispatcher("index.jsp").forward(request,response);
-                }
+            }
         
     }
 
