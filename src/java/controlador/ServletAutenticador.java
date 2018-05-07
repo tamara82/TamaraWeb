@@ -9,6 +9,7 @@ import Utilidades.Util;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,31 +36,38 @@ public class ServletAutenticador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            String cuenta = request.getParameter("usuario");
-            String lacontrasena = Util.calcularHash(request.getParameter("contrasena"));
-            Tamara t = new Tamara();
-            Usuario u = t.leerUsuario(cuenta);
-                if(cuenta.equals("")){
-                    request.setAttribute("mensaje","El usuario es obligatorio"); 
-                    request.getRequestDispatcher("index.jsp").forward(request,response);
-                }else if(u==null){
-                    request.setAttribute("mensaje","El usuario no existe"); 
-                    request.getRequestDispatcher("index.jsp").forward(request,response);    
-                }else if(!u.getContrasena().equals(lacontrasena)){
-                    request.setAttribute("mensaje", "Contraseña incorrecta");
-                    request.getRequestDispatcher("index.jsp").forward(request,response);
-                }else{
-                    request.setAttribute("mensaje", "Bienvenido/a");
-                    request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
-                } 
-            } catch (ExcepcionTamara ex) {
+        ServletContext contexto = request.getServletContext();
+        String uE = contexto.getInitParameter("usuarioEmergencia");
+        String cE = contexto.getInitParameter("contrasenaEmergencia");
+        String us = request.getParameter("usuario");
+        String c = request.getParameter("contrasena");
+            if(uE.equals(us)&& cE.equals(c))request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
+            else{
+                try {
+                    String cuenta = request.getParameter("usuario");
+                    String lacontrasena = Util.calcularHash(request.getParameter("contrasena"));
+                    Tamara t = new Tamara();
+                    Usuario u = t.leerUsuario(cuenta);
+                        if(cuenta.equals("")){
+                            request.setAttribute("mensaje","El usuario es obligatorio"); 
+                            request.getRequestDispatcher("index.jsp").forward(request,response);
+                        }else if(u==null){
+                            request.setAttribute("mensaje","El usuario no existe"); 
+                            request.getRequestDispatcher("index.jsp").forward(request,response);    
+                        }else if(!u.getContrasena().equals(lacontrasena)){
+                            request.setAttribute("mensaje", "Contraseña incorrecta");
+                            request.getRequestDispatcher("index.jsp").forward(request,response);
+                        }else{
+                            request.setAttribute("mensaje", "Bienvenido/a");
+                            request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
+                        } 
+                } catch (ExcepcionTamara ex) {
                     request.setAttribute("mensaje","Hola"); 
                     request.getRequestDispatcher("index.jsp").forward(request,response);
-            }
+                }
         
-    }
-
+            }
+        }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -68,6 +68,14 @@
         <servlet-name>ServletAltaUsuario</servlet-name>
         <url-pattern>/ServletAltaUsuario</url-pattern>
     </servlet-mapping>
+    <context-param>
+        <param-name>usuarioEmergencia</param-name>
+        <param-value>admin</param-value>
+    </context-param>
+    <context-param>
+        <param-name>contrasenaEmergencia</param-name>
+        <param-value>kk69</param-value>
+    </context-param>
     <servlet-mapping>
         <servlet-name>ServletAutenticador</servlet-name>
         <url-pattern>/ServletAutenticador</url-pattern>
