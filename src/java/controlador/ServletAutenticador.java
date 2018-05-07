@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import tamara.ExcepcionTamara;
 import tamara.Tamara;
 import tamara.Usuario;
@@ -41,7 +42,12 @@ public class ServletAutenticador extends HttpServlet {
         String cE = contexto.getInitParameter("contrasenaEmergencia");
         String us = request.getParameter("usuario");
         String c = request.getParameter("contrasena");
-            if(uE.equals(us)&& cE.equals(c))request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
+            if(uE.equals(us)&& cE.equals(c)){
+                Usuario usuarioSesion = new Usuario(0,us,c,"A");
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("usuarioSesion", usuarioSesion);
+                request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
+            }
             else{
                 try {
                     String cuenta = request.getParameter("usuario");

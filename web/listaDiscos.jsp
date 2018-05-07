@@ -13,10 +13,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Lista de discos</title>
+        <title>
+            
+            </title>
     </head>
     <body>
-        <h1>Lista de discos</h1>
+        <h1>
+            <%
+            ServletContext contexto = request.getServletContext();
+            String tit = contexto.getInitParameter("tituloListaDiscos");
+            out.println(tit);
+            %>
+        </h1>
          <%
             String mensaje = (String) request.getAttribute("mensaje");
             if(mensaje != null){
