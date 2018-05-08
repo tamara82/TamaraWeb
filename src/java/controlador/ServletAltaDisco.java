@@ -51,7 +51,7 @@ public class ServletAltaDisco extends HttpServlet {
                         Tamara t =new Tamara();
                         t.insertarDisco(d);
                         request.setAttribute("mensaje", "La inserción de disco se ha realizado correctamente");
-                        request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
+                        request.getRequestDispatcher("listadiscos.jsp").forward(request,response);
                     }else{
                         request.setAttribute("mensaje","La inserción del disco no se ha podido realizar. Errores detectados: "); 
                         request.setAttribute("listaErrores", listaErrores);

@@ -41,7 +41,7 @@ public class ServletEliminarDisco extends HttpServlet {
             Tamara t = new Tamara();
             t.eliminarDisco(d.getDiscoId());
             request.setAttribute("mensaje", "La eliminación del disco se ha realizado correctamente");
-            request.getRequestDispatcher("listaDiscos.jsp").forward(request, response);
+            request.getRequestDispatcher("listadiscos.jsp").forward(request, response);
         } catch (ExcepcionTamara ex) {
             listaErrores.add(ex.getMensajeErrorUsuario());
             request.setAttribute("mensaje", "La eliminación del disco no se ha podido realizar. Errores detectados: ");

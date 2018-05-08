@@ -40,27 +40,25 @@ public class ServletModificarVenta extends HttpServlet {
         try {
             Tamara t= new Tamara();
             Venta v = new Venta();
-        Disco d = new Disco();
-        v.setVentaId(Integer.parseInt(request.getParameter("ventaId")));
-        v.setNombreCliente(request.getParameter("nombreCliente"));
-        v.setApellidoCliente(request.getParameter("apellidoCliente"));
-        v.setDni(request.getParameter("dni"));
-        v.setCiudadDomicilio(request.getParameter("ciudadDomicilio"));
-        v.setFormaPago(request.getParameter("formaPago"));
-        d.setDiscoId(Integer.parseInt(request.getParameter("discoId")));
-        v.setDisco(d);
+            Disco d = new Disco();
+            v.setVentaId(Integer.parseInt(request.getParameter("ventaId")));
+            v.setNombreCliente(request.getParameter("nombreCliente"));
+            v.setApellidoCliente(request.getParameter("apellidoCliente"));
+            v.setDni(request.getParameter("dni"));
+            v.setCiudadDomicilio(request.getParameter("ciudadDomicilio"));
+            v.setFormaPago(request.getParameter("formaPago"));
+            d.setDiscoId(Integer.parseInt(request.getParameter("discoId")));
+            v.setDisco(d);
             t.modificarVenta(v.getVentaId(),v);
             
             
         } catch (ExcepcionTamara ex) {
-//          Logger.getLogger(ServletAltaVenta.class.getName()).log(Level.SEVERE, null, ex);
-            
             listaErrores.add(ex.getMensajeErrorUsuario());
             
         }
         if(listaErrores == null) {
         request.setAttribute("mensaje", "La modificación de venta se ha realizado correctamente");
-        request.getRequestDispatcher("listaVentas.jsp").forward(request,response);
+        request.getRequestDispatcher("listaventas.jsp").forward(request,response);
         
         }else{
         request.setAttribute("mensaje","La modificación de la venta no se ha podido realizar. Errores detectados: "); 

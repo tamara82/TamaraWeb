@@ -42,7 +42,7 @@ public class ServletEliminarVenta extends HttpServlet {
             v.setVentaId(Integer.parseInt(request.getParameter("ventaId")));
             t.eliminarVenta(v.getVentaId());
             request.setAttribute("mensaje", "La eliminación se ha realizado correctamente");
-            request.getRequestDispatcher("listaVentas.jsp").forward(request,response);
+            request.getRequestDispatcher("listaventas.jsp").forward(request,response);
             
         } catch (ExcepcionTamara ex) {
             listaErrores.add(ex.getMensajeErrorUsuario());

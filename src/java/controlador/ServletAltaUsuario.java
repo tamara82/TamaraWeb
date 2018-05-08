@@ -66,7 +66,7 @@ public class ServletAltaUsuario extends HttpServlet {
         private ArrayList<String> validarFormulario(HttpServletRequest request) {
         ArrayList<String> listaErrores = new ArrayList();
         if(request.getParameter("nombre") == null) listaErrores.add("Acceso no autorizado");
-        else if(request.getParameter("nombre").length() == 0) listaErrores.add("El nombre es obligatorio");
+        else if(request.getParameter("nombre").length() == 0) listaErrores.add("El usuario es obligatorio");
         else if(request.getParameter("nombre").length() < 3) listaErrores.add("La longitud del nombre debe ser mayor 2");
         
         if(request.getParameter("contrasena") == null) listaErrores.add("Acceso no autorizado");

@@ -13,6 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="css/estilo.css" rel="stylesheet" type="text/css" />
         <title>Alta de Venta</title>
     </head>
     <body>
@@ -65,7 +66,8 @@
             </select><br>
             
             <input type="submit" value="Aceptar"/>
-            <a href="listaVentas.jsp"><input type="button" value="Cancelar"/></a><br>
+            <a href="listaventas.jsp"><input type="button" value="Cancelar"/></a><br>
         </form>
+        <%@include file="includes/footer.jsp" %>
     </body>
 </html>

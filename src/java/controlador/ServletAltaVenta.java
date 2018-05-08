@@ -50,7 +50,7 @@ public class ServletAltaVenta extends HttpServlet {
                 v.setDisco(d);
                 t.insertarVenta(v);
                 request.setAttribute("mensaje", "La inserción de venta se ha realizado correctamente");
-                request.getRequestDispatcher("listaVentas.jsp").forward(request,response);    
+                request.getRequestDispatcher("listaventas.jsp").forward(request,response);    
             
             } catch (ExcepcionTamara ex) {
                 listaErrores.add(ex.getMensajeErrorUsuario());

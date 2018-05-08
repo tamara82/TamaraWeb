@@ -13,6 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="css/estilo.css" rel="stylesheet" type="text/css" />
         <title>Detalle Disco</title>
     </head>
     <body>
@@ -35,8 +36,9 @@
             <input type="number" name="numCanciones" disabled value="<%= d.getNumCanciones()%>"/><br>
             <label>EAN: </label>
             <input type="text" name="ean" disabled value="<%= d.getEAN()%>"/><br>
-            <a href="listaDiscos.jsp"><input type="button" value="Volver"/></a><br>
+            <a href="listadiscos.jsp"><input type="button" value="Volver"/></a><br>
         </form>
+        <%@include file="includes/footer.jsp" %>
     </body>
 </html>
 

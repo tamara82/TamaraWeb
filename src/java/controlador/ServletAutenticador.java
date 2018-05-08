@@ -46,7 +46,7 @@ public class ServletAutenticador extends HttpServlet {
                 Usuario usuarioSesion = new Usuario(0,us,c,"A");
                 HttpSession sesion = request.getSession();
                 sesion.setAttribute("usuarioSesion", usuarioSesion);
-                request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
+                request.getRequestDispatcher("listadiscos.jsp").forward(request,response);
             }
             else{
                 try {
@@ -65,7 +65,7 @@ public class ServletAutenticador extends HttpServlet {
                             request.getRequestDispatcher("index.jsp").forward(request,response);
                         }else{
                             request.setAttribute("mensaje", "Bienvenido/a");
-                            request.getRequestDispatcher("listaDiscos.jsp").forward(request,response);
+                            request.getRequestDispatcher("listadiscos.jsp").forward(request,response);
                         } 
                 } catch (ExcepcionTamara ex) {
                     request.setAttribute("mensaje","Hola"); 

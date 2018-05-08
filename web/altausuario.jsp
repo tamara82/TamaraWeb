@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="css/estilo.css" rel="stylesheet" type="text/css" />
         <title>Alta de Usuario</title>
     </head>
     <body>
@@ -43,5 +44,6 @@
             <input type="submit" value="Crear usuario">
             <a href="index.jsp">Cancelar</a><br>
         </form>
+        <%@include file="includes/footer.jsp" %>
     </body>
 </html>
