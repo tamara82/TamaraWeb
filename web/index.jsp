@@ -16,7 +16,22 @@
         <title>Login</title>
     </head>
     <body>
-        <%session.invalidate();%>
+        <%
+                String mensaje = (String) request.getAttribute("mensaje");
+                if(mensaje != null){
+                    ArrayList<String> listaErrores = (ArrayList) request.getAttribute("listaErrores");
+                    if(listaErrores == null){
+                        out.println("<p style='color:green;'>" + mensaje + "</p>");
+                    }else{
+                        out.println("<p style='color:red;'>" + mensaje + "</p>");
+                        for (String m : listaErrores){
+                            out.println("<p style='color:red;'>" + m + "</p>");
+                            }
+
+                    }
+
+                }
+            %>
 
         <h1>Introduce tu usuario y contraseña</h1>
             <%

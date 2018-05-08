@@ -54,6 +54,10 @@ public class ServletAutenticador extends HttpServlet {
                     String lacontrasena = Util.calcularHash(request.getParameter("contrasena"));
                     Tamara t = new Tamara();
                     Usuario u = t.leerUsuario(cuenta);
+                    Usuario usuarioSesion = u;
+                    HttpSession sesion = request.getSession();
+                    sesion.setAttribute("usuarioSesion", usuarioSesion);
+                    request.getRequestDispatcher("listadiscos.jsp").forward(request,response);
                         if(cuenta.equals("")){
                             request.setAttribute("mensaje","El usuario es obligatorio"); 
                             request.getRequestDispatcher("index.jsp").forward(request,response);

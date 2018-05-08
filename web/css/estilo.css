@@ -26,8 +26,9 @@ img{
     height:20px;
 }
 #discos{
-    width:60%;
-    height:40%;
+    margin-left: 510px;
+    width:900px;
+    height:500px;
 }
 body{
     background : #FFFFFF;
@@ -35,6 +36,7 @@ body{
 #container {
     background : #FFFFFF;
     border-radius: 15px;
+    padding-left: 30%;
 }
 /*BANNER*/
 #banner {
@@ -69,7 +71,8 @@ table, th, td{
 /*MENU*/
 ul{
     list-style: none;
-    align:left;
+    padding: 10px;
+    padding-left: 30%;
 }
 #nav li>a{
   background-color: grey;
@@ -78,7 +81,6 @@ ul{
   display: block;
   text-decoration: none;
   min-width: 100px;
-  align:left;
 }
 #nav li>a:hover{
   color: #000;
