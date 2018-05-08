@@ -5,6 +5,14 @@
                 <%
                     HttpSession sesion = request.getSession();
                     Usuario usuarioSesion = (Usuario)sesion.getAttribute("usuarioSesion");
+                    if(usuarioSesion==null){
+                            ArrayList<String> listaErrores=new ArrayList();
+                            request.setAttribute("listaErrores", listaErrores);
+                            request.setAttribute("mensaje", "Acceso no autorizado");
+                            request.getRequestDispatcher("index.jsp").forward(request,response);
+                        }else{
+                            out.println("<span>"+usuarioSesion.getNombre()+"(desconectar)</span>");
+                        }
                     if(usuarioSesion.getPerfil().equals("A")){
                 %>
                                     <li><a href="listadiscos.jsp">Discos</a></li>    
@@ -15,14 +23,7 @@
                 <li><a href="index.jsp">
                     <%
 
-                        if(usuarioSesion==null){
-                            ArrayList<String> listaErrores=new ArrayList();
-                            request.setAttribute("listaErrores", listaErrores);
-                            request.setAttribute("mensaje", "Acceso no autorizado");
-                            request.getRequestDispatcher("index.jsp").forward(request,response);
-                        }else{
-                            out.println("<span>"+usuarioSesion.getNombre()+"(desconectar)</span>");
-                        }
+                        
                     %>
                 </a></li>
              </ul>

@@ -35,7 +35,6 @@
 
         <h1>Introduce tu usuario y contraseña</h1>
             <%
-                String mensaje = (String) request.getAttribute("mensaje");
                 if(mensaje == null){
                 }else if(mensaje.equals("La creación del usuario se ha realizado correctamente")){
                     out.println("<p style='color:green;'>" + mensaje + "</p>");
