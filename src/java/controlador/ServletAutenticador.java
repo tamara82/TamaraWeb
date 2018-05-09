@@ -68,7 +68,7 @@ public class ServletAutenticador extends HttpServlet {
                             request.getRequestDispatcher("index.jsp").forward(request,response);
                         }else{
                             request.setAttribute("mensaje", "Bienvenido/a");
-                            request.getRequestDispatcher("listadiscos.jsp").forward(request,response);
+                            request.getRequestDispatcher("listaventas.jsp").forward(request,response);
                         } 
                 } catch (ExcepcionTamara ex) {
                     listaErrores.add(ex.getMensajeErrorUsuario());

@@ -10,7 +10,7 @@
                         request.setAttribute("listaErrores", listaErrores);
                         request.setAttribute("mensaje", "Acceso no autorizado");
                         request.getRequestDispatcher("index.jsp").forward(request,response);
-                    }    
+                    }   
                 %>
                     
                 <li><a href="listaventas.jsp">Ventas</a></li>

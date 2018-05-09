@@ -18,8 +18,9 @@
     <body>
         <h1>Eliminar Disco</h1>
         <%@include file="includes/menu.jsp" %>
+        <%@include file="includes/controlacceso.jsp" %>
             <%
-                String mensaje = (String) request.getAttribute("mensaje");
+            String mensaje = (String) request.getAttribute("mensaje");
                 if(mensaje != null){
                     ArrayList<String> listaErrores = (ArrayList) request.getAttribute("listaErrores");
                     if(listaErrores == null){
@@ -27,7 +28,7 @@
                     } else{
                         out.println("<p style='color:red;'>" + mensaje + "</p>");
                         for (String m : listaErrores){
-                        out.println("<p style='color:red;'>" + m + "</p>");
+                            out.println("<p style='color:red;'>" + m + "</p>");
                         }    
                     }
                     

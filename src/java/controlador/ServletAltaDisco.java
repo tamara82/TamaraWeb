@@ -15,9 +15,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import tamara.Disco;
 import tamara.ExcepcionTamara;
 import tamara.Tamara;
+import tamara.Usuario;
 
 
 /**
@@ -38,7 +40,13 @@ public class ServletAltaDisco extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ArrayList<String> listaErrores = null; 
+        ArrayList<String> listaErrores = null;
+        HttpSession ssesion = request.getSession();
+        Usuario usuarioSSesion = (Usuario)ssesion.getAttribute("usuarioSesion");
+        if(usuarioSSesion.getPerfil().equals("N")){
+            request.setAttribute("mensaje", "Acceso no autorizado");
+            request.getRequestDispatcher("listaventas.jsp").forward(request,response);
+        } 
             try {
                 listaErrores= validarFormulario(request);
                     if(listaErrores == null){

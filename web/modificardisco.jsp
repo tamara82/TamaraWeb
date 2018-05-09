@@ -19,6 +19,7 @@
     <body>
         <h1>Modificación de Disco</h1>
             <%@include file="includes/menu.jsp" %>
+            <%@include file="includes/controlacceso.jsp" %>
                 <%
                 String mensaje = (String) request.getAttribute("mensaje");
                 if(mensaje != null){

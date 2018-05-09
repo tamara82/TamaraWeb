@@ -19,6 +19,7 @@
     <body>
         <h1>Detalle Disco</h1>
         <%@include file="includes/menu.jsp" %>
+        <%@include file="includes/controlacceso.jsp" %>
         <%
             Disco d;
             Tamara t =new Tamara();
