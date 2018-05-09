@@ -16,31 +16,20 @@
         <title>Login</title>
     </head>
     <body>
-        <%
+        <h1>Introduce tu usuario y contraseña</h1>
+            <%
                 String mensaje = (String) request.getAttribute("mensaje");
-                if(mensaje != null){
-                    ArrayList<String> listaErrores = (ArrayList) request.getAttribute("listaErrores");
-                    if(listaErrores == null){
+                ArrayList<String> listaErrores=new ArrayList();
+                    if(mensaje == null){
+                        listaErrores = (ArrayList) request.getAttribute("listaErrores");
+                    }else if(mensaje.equals("La creación del usuario se ha realizado correctamente")){
                         out.println("<p style='color:green;'>" + mensaje + "</p>");
-                    }else{
+                    }else if(mensaje != null){
                         out.println("<p style='color:red;'>" + mensaje + "</p>");
                         for (String m : listaErrores){
                             out.println("<p style='color:red;'>" + m + "</p>");
-                            }
-
-                    }
-
-                }
-            %>
-
-        <h1>Introduce tu usuario y contraseña</h1>
-            <%
-                if(mensaje == null){
-                }else if(mensaje.equals("La creación del usuario se ha realizado correctamente")){
-                    out.println("<p style='color:green;'>" + mensaje + "</p>");
-                }else if(mensaje != null){
-                    out.println("<p style='color:red;'>" + mensaje + "</p>");
-                }    
+                        }
+                    }    
             %>
         <form method="post" action="ServletAutenticador">
             <label>Usuario: </label>

@@ -19,6 +19,7 @@
     <body>
         <h1>Lista de Ventas</h1>
         <%@include file="includes/menu.jsp" %>
+        <div id="container">
         <%
             String mensaje = (String) request.getAttribute("mensaje");
             if(mensaje != null){
@@ -92,6 +93,7 @@
 
         %>
         </table>
+        </div>
     <%@include file="includes/footer.jsp" %>
     </body>
 </html>

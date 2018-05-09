@@ -19,7 +19,7 @@
     </head>
     <body>
         <h1>Detalle Venta</h1>
-        
+        <%@include file="includes/menu.jsp" %>
             <%
                 Venta v;
                 Tamara t =new Tamara();

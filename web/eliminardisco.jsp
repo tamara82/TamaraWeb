@@ -17,6 +17,7 @@
     </head>
     <body>
         <h1>Eliminar Disco</h1>
+        <%@include file="includes/menu.jsp" %>
             <%
                 String mensaje = (String) request.getAttribute("mensaje");
                 if(mensaje != null){

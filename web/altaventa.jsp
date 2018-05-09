@@ -19,6 +19,7 @@
     <body>
         <form method="post" action="ServletAltaVenta">
             <h1>Alta de Venta</h1>
+            <%@include file="includes/menu.jsp" %>
             <%
                 String mensaje = (String) request.getAttribute("mensaje");
                 if(mensaje != null){
