@@ -82,6 +82,8 @@ public class ServletAltaVenta extends HttpServlet {
         else if(request.getParameter("dni").length() == 0) listaErrores.add("El dni es obligatorio");
         else if(request.getParameter("dni").length() != 9) listaErrores.add("La longitud del dni debe ser 9");
         
+        if(request.getParameter("formaPago") == null) listaErrores.add("La forma de pago es obligatoria");
+                 
         if(request.getParameter("discoId") == null) listaErrores.add("Acceso no autorizado");
         else if(request.getParameter("discoId").length() == 0) listaErrores.add("Acceso no autorizado");
         else if(request.getParameter("discoId").equals("0")) listaErrores.add("El disco es obligatorio");

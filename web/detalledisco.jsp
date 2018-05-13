@@ -17,29 +17,36 @@
         <title>Detalle Disco</title>
     </head>
     <body>
-        <h1>Detalle Disco</h1>
-        <%@include file="includes/menu.jsp" %>
-        <%@include file="includes/controlacceso.jsp" %>
-        <%
-            Disco d;
-            Tamara t =new Tamara();
-            d = t.leerDisco(Integer.parseInt(request.getParameter("discoId")));
-        %>
-            <form method="post">
-            <input type="hidden" name="discoId" value="<%= d.getDiscoId() %>">
-            <label>Titulo: </label>
-            <input type="text" name="titulo" disabled value="<%= d.getTitulo()%>"/><br>
-            <label>Autor: </label>
-            <input type="text" name="autor" disabled value="<%= d.getAutor()%>"/><br>
-            <label>Año de publicacion: </label>
-            <input type="number" name="anioPublicacion" disabled value="<%= d.getAnioPublicacion()%>"/><br>
-            <label>Número de canciones: </label>
-            <input type="number" name="numCanciones" disabled value="<%= d.getNumCanciones()%>"/><br>
-            <label>EAN: </label>
-            <input type="text" name="ean" disabled value="<%= d.getEAN()%>"/><br>
-            <a href="listadiscos.jsp"><input type="button" value="Volver"/></a><br>
-        </form>
-        <%@include file="includes/footer.jsp" %>
+        <div id="container">
+            <header class="item">
+                <h1>Detalle Disco</h1>
+                <%@include file="includes/menu.jsp" %>
+                <%@include file="includes/controlacceso.jsp" %>
+            </header><br>
+            <div id="mensaje">
+                <%            Disco d;
+                    Tamara t = new Tamara();
+                    d = t.leerDisco(Integer.parseInt(request.getParameter("discoId")));
+                %>
+            </div>
+            <section id="cuerpo" class="item">
+                <form method="post">
+                    <input type="hidden" name="discoId" value="<%= d.getDiscoId()%>">
+                    <label>Titulo: </label>
+                    <input type="text" name="titulo" disabled value="<%= d.getTitulo()%>"/><br>
+                    <label>Autor: </label>
+                    <input type="text" name="autor" disabled value="<%= d.getAutor()%>"/><br>
+                    <label>Año de publicacion: </label>
+                    <input type="number" name="anioPublicacion" disabled value="<%= d.getAnioPublicacion()%>"/><br>
+                    <label>Número de canciones: </label>
+                    <input type="number" name="numCanciones" disabled value="<%= d.getNumCanciones()%>"/><br>
+                    <label>EAN: </label>
+                    <input type="text" name="ean" disabled value="<%= d.getEAN()%>"/><br>
+                    <a href="listadiscos.jsp"><input type="button" value="Volver"/></a><br>
+                </form>
+            </section>
+            <%@include file="includes/footer.jsp" %>
+        </div>
     </body>
 </html>
 

@@ -15,38 +15,46 @@
         <title>Alta de disco</title>
     </head>
     <body>
-        <form method="post" action="ServletAltaDisco">
-            <h1>Alta de Disco</h1>
-            <%@include file="includes/menu.jsp" %>
-            <%@include file="includes/controlacceso.jsp" %>
-            <%
-                String mensaje = (String) request.getAttribute("mensaje");
-                if(mensaje != null){
-                    ArrayList<String> listaErrores = (ArrayList) request.getAttribute("listaErrores");
-                    if(listaErrores == null){
-                        out.println("<p style='color:green;'>" + mensaje + "</p>");
-                    } else{
-                        out.println("<p style='color:red;'>" + mensaje + "</p>");
-                        for (String m : listaErrores){
-                        out.println("<p style='color:red;'>" + m + "</p>");
-                        }    
+        <div id="container">
+            <header class="item">
+                <h1>Alta de Disco</h1>
+                <%@include file="includes/menu.jsp" %>
+                <%@include file="includes/controlacceso.jsp" %>
+            </header><br>
+            <div id="mensaje">
+                <%
+                    String mensaje = (String) request.getAttribute("mensaje");
+                    if(mensaje != null){
+                        ArrayList<String> listaErrores = (ArrayList) request.getAttribute("listaErrores");
+                        if(listaErrores == null){
+                            out.println("<p style='color:green;'>" + mensaje + "</p>");
+                        } else{
+                            out.println("<p style='color:red;'>" + mensaje + "</p>");
+                            for (String m : listaErrores){
+                            out.println("<p style='color:red;'>" + m + "</p>");
+                            }    
+                        }
+
                     }
-                    
-                }
-            %>
-            <label>Titulo: </label>
-            <input type="text" name="titulo" value="<%=Util.convertirNullAStringVacio(request.getParameter("titulo"))%>"/><br>
-            <label>Autor: </label>
-            <input type="text" name="autor" value="<%=Util.convertirNullAStringVacio(request.getParameter("autor"))%>"/><br>
-            <label>Año de publicacion: </label>
-            <input type="number" name="anioPublicacion" value="<%=request.getParameter("anioPublicacion")%>"/><br>
-            <label>Número de canciones: </label>
-            <input type="number" name="numCanciones" value="<%=request.getParameter("numCanciones")%>"/><br>
-            <label>EAN: </label>
-            <input type="text" name="ean" value="<%=Util.convertirNullAStringVacio(request.getParameter("ean"))%>"/><br>
-            <input type="submit" value="Crear"/>
-            <a href="listadiscos.jsp"><input type="button" value="Cancelar"/></a><br>
-        </form>
-        <%@include file="includes/footer.jsp" %>
+                %>
+                </div>
+                <section id="cuerpo" class="item">
+                    <form method="post" action="ServletAltaDisco">
+                        <label>Titulo: </label>
+                        <input type="text" name="titulo" value="<%=Util.convertirNullAStringVacio(request.getParameter("titulo"))%>"/><br>
+                        <label>Autor: </label>
+                        <input type="text" name="autor" value="<%=Util.convertirNullAStringVacio(request.getParameter("autor"))%>"/><br>
+                        <label>Año de publicacion: </label>
+                        <input type="number" name="anioPublicacion" value="<%=request.getParameter("anioPublicacion")%>"/><br>
+                        <label>Número de canciones: </label>
+                        <input type="number" name="numCanciones" value="<%=request.getParameter("numCanciones")%>"/><br>
+                        <label>EAN: </label>
+                        <input type="text" name="ean" value="<%=Util.convertirNullAStringVacio(request.getParameter("ean"))%>"/><br>
+                        <input type="submit" value="Crear"/>
+                        <a href="listadiscos.jsp"><input type="button" value="Cancelar"/></a><br>
+                    </form>
+                </section>
+            <%@include file="includes/footer.jsp" %>
+        </div>
     </body>
 </html>
