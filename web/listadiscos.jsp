@@ -61,9 +61,6 @@
 
                             out.println("<tr>");
                             out.println("<td>");
-                            out.println(d.getDiscoId());
-                            out.println("</td>");
-                            out.println("<td>");
                             out.println(d.getTitulo());
                             out.println("</td>");
                             out.println("<td>");
