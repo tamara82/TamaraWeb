@@ -43,7 +43,6 @@
             <section id="cuerpo" class="item">
                 <table>
                     <tr>
-                        <th>Id</th>
                         <th>Titulo</th>
                         <th>Autor</th>
                         <th>Año de publicación</th>

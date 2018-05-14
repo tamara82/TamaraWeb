@@ -40,7 +40,6 @@
                 %>
                 <table>
                     <tr>
-                        <th>Id</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>DNI</th>
@@ -58,9 +57,6 @@
                         while (pos < listaVentas.size()) {
                             v = listaVentas.get(pos);
                             out.println("<tr>");
-                            out.println("<td>");
-                            out.println(v.getVentaId());
-                            out.println("</td>");
                             out.println("<td>");
                             out.println(v.getNombreCliente());
                             out.println("</td>");
