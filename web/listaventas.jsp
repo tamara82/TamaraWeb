@@ -39,6 +39,11 @@
 
                     }
                 %>
+                <%
+                    String filtroNombre = Util.convertirStringNull(request.getParameter("filtroNombre"));
+                    
+                    %>
+                    <form method="post" action="listaventas.jsp">
                 <p class="derecha">
                     <label>Ordenar por</label>
                         <select name="criterioOrdenacion">
@@ -51,6 +56,7 @@
                         </select> 
                     <input type="submit" value="Aplicar Filtro"/>
                 </p>
+                
                 <table>
                     <tr>
                         <th>Nombre</th>
@@ -62,12 +68,15 @@
                         <th><a href="altaventa.jsp" ><img src='img/mas.png'></a></th>
                         
                     </tr>
+                    
                     <%
                         Tamara tamara = new Tamara();
-                        ArrayList<Venta> listaVentas = tamara.leerVentas();
+                        ArrayList<Venta> listaVentas = tamara.leerVentas(filtroNombre,null,null,null,null,null);
                         out.println("<tr>");
                         out.println("<td>");
-                        out.println("<input type='text' name='nombre'/>");
+                        %>
+                        <input type='text' name='filtroNombre' value="<%=Util.convertirNullAStringVacio(filtroNombre)%>"/>
+                        <%
                         out.println("</td>");
                         out.println("<td>");
                         out.println("</td>");
@@ -129,7 +138,9 @@
 
                     %>
                 </table>
+                </form>
             </div>
+                        
             <%@include file="includes/footer.jsp" %>
     </body>
 </html>

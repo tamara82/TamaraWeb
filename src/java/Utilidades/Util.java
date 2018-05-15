@@ -32,6 +32,15 @@ public class Util {
 
     }
 
+    public static String convertirStringNull(String cadena) {
+        if (cadena == null) {
+            return null;
+        } else if (cadena.equals("")) {
+            return null;
+        }
+        return cadena;
+    }
+
     public static String convertirNullAStringVacio(String cadena) {
         if (cadena == null) {
             return "";
@@ -52,19 +61,19 @@ public class Util {
     }
 
     public static String calcularHash(String cadena) {
-    String resultado="";    
+        String resultado = "";
         try {
             String textoString = cadena;
             byte[] textoArrayBytes = textoString.getBytes();
             MessageDigest mensaje = MessageDigest.getInstance("SHA-512");
             mensaje.update(textoArrayBytes);
             byte[] resumen = mensaje.digest();
-            resultado=hexadecimal(resumen);
+            resultado = hexadecimal(resumen);
         } catch (NoSuchAlgorithmException ex) {
             System.out.println(ex.getMessage());
         }
 
-    return resultado;    
+        return resultado;
     }
 
     public static String hexadecimal(byte[] arrayBytes) {
