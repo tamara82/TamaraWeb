@@ -39,13 +39,15 @@
 
                     }
                 %>
+                </div>
                 <%
                     String filtroNombre = Util.convertirStringNull(request.getParameter("filtroNombre"));
-                    
-                    %>
-                    <form method="post" action="listaventas.jsp">
+                    String filtroDni = Util.convertirStringNull(request.getParameter("filtroDni"));
+                %>
+            
+                <form method="post" action="listaventas.jsp">
                 <p class="derecha">
-                    <label>Ordenar por</label>
+                <label>Ordenar por</label>
                         <select name="criterioOrdenacion">
                             <option value="<%=Tamara.NOMBRE_CLIENTE %>">Nombre</option>
                             <option value="<%=Tamara.APELLIDO_CLIENTE %>">Apellido</option>
@@ -70,69 +72,55 @@
                     </tr>
                     
                     <%
-                        Tamara tamara = new Tamara();
-                        ArrayList<Venta> listaVentas = tamara.leerVentas(filtroNombre,null,null,null,null,null);
-                        out.println("<tr>");
-                        out.println("<td>");
-                        %>
-                        <input type='text' name='filtroNombre' value="<%=Util.convertirNullAStringVacio(filtroNombre)%>"/>
-                        <%
-                        out.println("</td>");
-                        out.println("<td>");
-                        out.println("</td>");
-                        out.println("<td>");
-                        out.println("<input type='text' name='dni'/>");
-                        out.println("</td>");
-                        out.println("<td>");
-                        out.println("</td>");
-                        out.println("<td>");
-                        out.println("<select name='formaPago'>");
-                        out.println("<option value='E'>Efectivo</option>");
-                        out.println("<option value='T'>Tarjeta</option>");
-                        out.println("</select>"); 
-                        out.println("</td>");
-                        out.println("<td>");
-                        out.println("<select name='discoId'>");
                         Tamara t = new Tamara();
+                        ArrayList<Venta> listaVentas=t.leerVentas();
+                        if(!Util.convertirNullAStringVacio(filtroNombre).equals("")){
+                            listaVentas = t.leerVentas(filtroNombre,null,null,null,null,null);
+                        }
+                        if(!Util.convertirNullAStringVacio(filtroDni).equals("")){
+                            listaVentas = t.leerVentas(null,filtroDni,null,null,null,null);
+                        }
+                    %>
+                        <tr>
+                        <td>
+                        <input type="text" name="filtroNombre" value="<%=Util.convertirNullAStringVacio(filtroNombre)%>"/>
+                        </td>
+                        <td></td>
+                        <td><input type="text" name="filtroDni" value="<%=Util.convertirNullAStringVacio(filtroDni)%>"/>
+                        </td>
+                        <td></td>
+                        <td><select name="formaPago">
+                        <option value="E">Efectivo</option>
+                        <option value="T">Tarjeta</option>
+                        </select>
+                        </td>
+                        <td>
+                        <select name="discoId">
+                        <%
                             ArrayList<Disco> listaDiscos = t.leerDiscos();
-                            for (Disco d : listaDiscos) {
-                                out.println("<option value='" + d.getDiscoId() + "'>" + d.getTitulo() + "</option>");
-                            }
-                        out.println("</td>");
-                        out.println("</tr>");
-                        Venta v = null;
-                        int pos = 0;
-                        while (pos < listaVentas.size()) {
-                            v = listaVentas.get(pos);
-                            out.println("<tr>");
-                            out.println("<td>");
-                            out.println(v.getNombreCliente());
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println(v.getApellidoCliente());
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println(v.getDni());
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println(Util.convertirNullAStringVacio(v.getCiudadDomicilio()));
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println(Util.traducirPago(v.getFormaPago()));
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println(v.getDisco().getDiscoId());
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println("<a href='modificarventa.jsp?ventaId=" + v.getVentaId() + "'><img src='img/editar.png'></a></a>");
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println("<a href='eliminarventa.jsp?ventaId=" + v.getVentaId() + "'><img src='img/borrar.png'></a></a>");
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println("<a href='detalleventa.jsp?ventaId=" + v.getVentaId() + "'><img src='img/lupa.png'></a>");
-                            out.println("</td>");
-                            out.println("</tr>");
+                                for (Disco d : listaDiscos) {
+                                    out.println("<option value='" + d.getDiscoId() + "'>" + d.getTitulo() + "</option>");
+                                }
+                        %>
+                        </select></td></tr>
+                        <%
+                            Venta v = null;
+                            int pos = 0;
+                            while (pos < listaVentas.size()) {
+                                v = listaVentas.get(pos);
+                        %>
+                            <tr>
+                            <td><%=v.getNombreCliente()%></td>
+                            <td><%=v.getApellidoCliente()%></td>
+                            <td><%=v.getDni()%></td>
+                            <td><%=Util.convertirNullAStringVacio(v.getCiudadDomicilio())%></td>
+                            <td><%=Util.traducirPago(v.getFormaPago())%></td>
+                            <td><%=v.getDisco().getDiscoId()%></td>
+                            <td><a href="modificarventa.jsp?ventaId=<%=v.getVentaId()%>"><img src="img/editar.png"></a></td>
+                            <td><a href="eliminarventa.jsp?ventaId=<%=v.getVentaId()%>"><img src="img/borrar.png"></a></td>
+                            <td><a href="detalleventa.jsp?ventaId=<%=v.getVentaId()%>"><img src="img/lupa.png"></a></td>
+                            </tr>
+                            <%
                             pos++;
                         }
 

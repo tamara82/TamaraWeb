@@ -57,33 +57,18 @@
                         int pos = 0;
                         while (pos < listaDiscos.size()) {
                             d = listaDiscos.get(pos);
-
-                            out.println("<tr>");
-                            out.println("<td>");
-                            out.println(d.getTitulo());
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println(d.getAutor());
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println(Integer.toString(d.getAnioPublicacion()));
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println(Integer.toString(d.getNumCanciones()));
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println(d.getEAN());
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println("<a href='modificardisco.jsp?discoId=" + d.getDiscoId() + "'><img src='img/editar.png'></a>");
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println("<a href='eliminardisco.jsp?discoId=" + d.getDiscoId() + "'><img src='img/borrar.png'></a>");
-                            out.println("</td>");
-                            out.println("<td>");
-                            out.println("<a href='detalledisco.jsp?discoId=" + d.getDiscoId() + "'><img src='img/lupa.png'></a>");
-                            out.println("</td>");
-                            out.println("</tr>");
+                    %>
+                    <tr>
+                    <td><%=d.getTitulo()%></td>
+                    <td><%=d.getAutor()%></td>
+                    <td><%=Integer.toString(d.getAnioPublicacion())%></td>
+                    <td><%=Integer.toString(d.getNumCanciones())%></td>
+                    <td><%=d.getEAN()%></td>
+                    <td><a href="modificardisco.jsp?discoId=<%=d.getDiscoId()%>"><img src="img/editar.png"></a></td>
+                    <td><a href="eliminardisco.jsp?discoId=<%=d.getDiscoId()%>"><img src="img/borrar.png"></a></td>
+                    <td><a href="detalledisco.jsp?discoId=<%=d.getDiscoId()%>"><img src="img/lupa.png"></a></td>
+                    </tr>
+                    <%
                             pos++;
                         }
                     %>

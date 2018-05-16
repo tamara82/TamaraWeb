@@ -24,7 +24,8 @@
                 <%@include file="includes/controlacceso.jsp" %>
             </header><br>
             <div id="mensaje">
-                <%            Disco d;
+                <%            
+                    Disco d;
                     Tamara t = new Tamara();
                     d = t.leerDisco(Integer.parseInt(request.getParameter("discoId")));
                 %>

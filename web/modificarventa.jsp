@@ -40,9 +40,9 @@
                         }
                 %>
                 <%
+                    Tamara t = new Tamara();
                     Venta v;
                     if (request.getParameter("nombreCliente") == null) {
-                        Tamara t = new Tamara();
                         v = t.leerVenta(Integer.parseInt(request.getParameter("ventaId")));
                     } else {
                         v = new Venta();
@@ -90,7 +90,6 @@
                     <select name="discoId">
                         <option value="0"></option>
                         <%                
-                            Tamara t = new Tamara();
                             ArrayList<Disco> listaDiscos = t.leerDiscos();
                             for (Disco d : listaDiscos) {
                                 if (v.getDisco().getDiscoId() == d.getDiscoId()) {

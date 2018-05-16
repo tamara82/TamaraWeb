@@ -60,8 +60,8 @@
                     <label>Disco: </label>
                     <select name="discoId" disabled>
                         <option value="0"></option>
-                        <%                Tamara tamara = new Tamara();
-                            ArrayList<Disco> listaDiscos = tamara.leerDiscos();
+                        <%                
+                            ArrayList<Disco> listaDiscos = t.leerDiscos();
                             for (Disco d : listaDiscos) {
                                 if (v.getDisco().getDiscoId() == d.getDiscoId()) {
                                     out.println("<option value='" + d.getDiscoId() + "' selected>" + d.getTitulo() + "</option>");
