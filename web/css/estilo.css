@@ -156,5 +156,9 @@ footer{
 	footer{
 		order:3;
 	}
+        
+        #pequeno{
+            width: 40px;
+        }
 
 }

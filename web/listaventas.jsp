@@ -43,16 +43,21 @@
                 <%
                     String filtroNombre = Util.convertirStringNull(request.getParameter("filtroNombre"));
                     String filtroDni = Util.convertirStringNull(request.getParameter("filtroDni"));
+                    String maniobra = Util.convertirStringNull(request.getParameter("filtroDiscoId"));
+                    String maniobra2 = Util.convertirStringNull(request.getParameter("filtroFormaPago"));
+                    
                 %>
             
                 <form method="post" action="listaventas.jsp">
                 <p class="derecha">
                 <label>Ordenar por</label>
                         <select name="criterioOrdenacion">
+                            <option value=""></option>
                             <option value="<%=Tamara.NOMBRE_CLIENTE %>">Nombre</option>
                             <option value="<%=Tamara.APELLIDO_CLIENTE %>">Apellido</option>
                         </select> 
                         <select name="orden">
+                            <option value=""></option>
                             <option value="<%= Tamara.ASCENDING%>">Ascendente</option>
                             <option value="<%= Tamara.DESCENDING%>">Descendente</option>
                         </select> 
@@ -80,26 +85,49 @@
                         if(!Util.convertirNullAStringVacio(filtroDni).equals("")){
                             listaVentas = t.leerVentas(null,filtroDni,null,null,null,null);
                         }
+                        Integer filtroDiscoId;
+                        if(maniobra == null)filtroDiscoId=null;
+                        else filtroDiscoId=Integer.parseInt(maniobra);
+                        listaVentas = t.leerVentas(null,null,null,filtroDiscoId,null,null);
+                        
+                        String filtroFormaPago;
+                        if(maniobra2==null) filtroFormaPago=null;
+                        else filtroFormaPago=maniobra2;
+                        listaVentas = t.leerVentas(null,null,filtroFormaPago,null,null,null);
+                        
+                        Integer orden;
+                        maniobra = Util.convertirStringNull(request.getParameter("criterioOrdenacion"));
+                        if(maniobra==null) orden=null;
+                        else orden=Integer.parseInt(maniobra);
+                        listaVentas = t.leerVentas(null,null,null,null,maniobra,orden);
+                        
                     %>
                         <tr>
                         <td>
-                        <input type="text" name="filtroNombre" value="<%=Util.convertirNullAStringVacio(filtroNombre)%>"/>
+                        <input type="text" name="filtroNombre"  id="pequeno" value="<%=Util.convertirNullAStringVacio(filtroNombre)%>"/>
                         </td>
                         <td></td>
-                        <td><input type="text" name="filtroDni" value="<%=Util.convertirNullAStringVacio(filtroDni)%>"/>
+                        <td><input type="text" name="filtroDni" id="pequeno" value="<%=Util.convertirNullAStringVacio(filtroDni)%>"/>
                         </td>
                         <td></td>
-                        <td><select name="formaPago">
-                        <option value="E">Efectivo</option>
-                        <option value="T">Tarjeta</option>
+                        <td><select name="filtroFormaPago">
+                            <option value=""></option>
+                            <option value="E">Efectivo</option>
+                            <option value="T">Tarjeta</option>
                         </select>
                         </td>
                         <td>
-                        <select name="discoId">
+                        <select name="filtroDiscoId">
+                            <option value=""></option>
                         <%
                             ArrayList<Disco> listaDiscos = t.leerDiscos();
                                 for (Disco d : listaDiscos) {
-                                    out.println("<option value='" + d.getDiscoId() + "'>" + d.getTitulo() + "</option>");
+                                    if(d.getDiscoId()==filtroDiscoId){
+                                        out.println("<option value='" + d.getDiscoId() + "' selected>" + d.getTitulo() + "</option>");                                        
+                                    }else{
+                                        out.println("<option value='" + d.getDiscoId() + "'>" + d.getTitulo() + "</option>");
+                                    }
+
                                 }
                         %>
                         </select></td></tr>
