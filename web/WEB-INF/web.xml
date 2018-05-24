@@ -36,6 +36,10 @@
         <servlet-name>ServletAutenticador</servlet-name>
         <servlet-class>controlador.ServletAutenticador</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletCookies</servlet-name>
+        <servlet-class>controlador.ServletCookies</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAltaVenta</servlet-name>
         <url-pattern>/ServletAltaVenta</url-pattern>
@@ -83,6 +87,10 @@
     <servlet-mapping>
         <servlet-name>ServletAutenticador</servlet-name>
         <url-pattern>/ServletAutenticador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletCookies</servlet-name>
+        <url-pattern>/ServletCookies</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
