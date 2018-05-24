@@ -1,5 +1,5 @@
 #container {
-    width:90%;
+    width:100%;
     max-width:1049px;
     min-width:320px;
     margin:20px auto;		
@@ -80,6 +80,18 @@ input{
     color: white;
     background-color: #b576ad;
 }
+
+#pequeno{
+    width: 90px;
+}
+
+#grande{
+    padding: 0px;
+    width:100%;
+}
+#derecha{
+    float: rigth;
+}
 img{
     width:20px;
     height:20px;
@@ -112,7 +124,7 @@ table, th, td{
     padding: 10px;
 }
 table{
-    width:90%;
+    width:100%;
 }
 /*FOOTER*/
 footer{
@@ -157,8 +169,5 @@ footer{
 		order:3;
 	}
         
-        #pequeno{
-            width: 40px;
-        }
 
 }

@@ -44,27 +44,59 @@
                     String filtroNombre = Util.convertirStringNull(request.getParameter("filtroNombre"));
                     String filtroDni = Util.convertirStringNull(request.getParameter("filtroDni"));
                     String maniobra = Util.convertirStringNull(request.getParameter("filtroDiscoId"));
-                    String maniobra2 = Util.convertirStringNull(request.getParameter("filtroFormaPago"));
+                    Tamara t = new Tamara();
+                        ArrayList<Venta> listaVentas=t.leerVentas();
+                        if(filtroNombre==null)filtroNombre=null;
+                        else listaVentas = t.leerVentas(filtroNombre,null,null,null,null,null);
+                        
+                        if(filtroDni==null)filtroDni=null;
+                        else listaVentas = t.leerVentas(null,filtroDni,null,null,null,null);
+                        
+                        Integer filtroDiscoId;
+                        if(maniobra==null){
+                            filtroDiscoId=null;
+                        }else{
+                            filtroDiscoId=Integer.parseInt(maniobra);
+                            listaVentas = t.leerVentas(null,null,null,filtroDiscoId,null,null);
+                        }
+                        
+                        maniobra=Util.convertirStringNull(request.getParameter("filtroFormaPago"));
+                        String filtroFormaPago;
+                        if(maniobra==null){
+                            filtroFormaPago=null;
+                        }else{
+                            filtroFormaPago=maniobra;
+                            listaVentas = t.leerVentas(null,null,filtroFormaPago,null,null,null);
+                        }
+                        
+                        maniobra=Util.convertirStringNull(request.getParameter("criterioOrdenacion"));
+                        String maniobra2 = Util.convertirStringNull(request.getParameter("orden"));
+                        Integer orden;
+                        Integer criterioOrdenacion=null;
+                        if(maniobra==null){
+                            orden=null;
+                        }else{
+                            criterioOrdenacion=Integer.parseInt(maniobra);
+                            orden=Integer.parseInt(Util.convertirStringNull(request.getParameter("orden")));
+                            listaVentas = t.leerVentas(null,null,null,null,criterioOrdenacion,orden);
+                        }
+                        
                     
                 %>
             
-                <form method="post" action="listaventas.jsp">
-                <p class="derecha">
+                <form method="post" action="listaventas.jsp" id="grande">
                 <label>Ordenar por</label>
                         <select name="criterioOrdenacion">
                             <option value=""></option>
-                            <option value="<%=Tamara.NOMBRE_CLIENTE %>">Nombre</option>
-                            <option value="<%=Tamara.APELLIDO_CLIENTE %>">Apellido</option>
+                            <option value="<%=Tamara.NOMBRE_CLIENTE %>" <%if (Tamara.NOMBRE_CLIENTE == criterioOrdenacion) out.print("selected='selected'");%>>Nombre</option>
+                            <option value="<%=Tamara.APELLIDO_CLIENTE %>" <%if (Tamara.APELLIDO_CLIENTE == criterioOrdenacion) out.print("selected='selected'");%>>Apellido</option>
                         </select> 
                         <select name="orden">
                             <option value=""></option>
-                            <option value="<%= Tamara.ASCENDING%>">Ascendente</option>
-                            <option value="<%= Tamara.DESCENDING%>">Descendente</option>
+                            <option value="<%= Tamara.ASCENDING%>" <%if (Tamara.ASCENDING == orden) out.print("selected='selected'");%>>Ascendente</option>
+                            <option value="<%= Tamara.DESCENDING%>" <%if (Tamara.DESCENDING == orden) out.print("selected='selected'");%>>Descendente</option>
                         </select> 
-                    <input type="submit" value="Aplicar Filtro"/>
-                </p>
-                
-                <table>
+                    <table>
                     <tr>
                         <th>Nombre</th>
                         <th>Apellido</th>
@@ -75,33 +107,7 @@
                         <th><a href="altaventa.jsp" ><img src='img/mas.png'></a></th>
                         
                     </tr>
-                    
-                    <%
-                        Tamara t = new Tamara();
-                        ArrayList<Venta> listaVentas=t.leerVentas();
-                        if(!Util.convertirNullAStringVacio(filtroNombre).equals("")){
-                            listaVentas = t.leerVentas(filtroNombre,null,null,null,null,null);
-                        }
-                        if(!Util.convertirNullAStringVacio(filtroDni).equals("")){
-                            listaVentas = t.leerVentas(null,filtroDni,null,null,null,null);
-                        }
-                        Integer filtroDiscoId;
-                        if(maniobra == null)filtroDiscoId=null;
-                        else filtroDiscoId=Integer.parseInt(maniobra);
-                        listaVentas = t.leerVentas(null,null,null,filtroDiscoId,null,null);
-                        
-                        String filtroFormaPago;
-                        if(maniobra2==null) filtroFormaPago=null;
-                        else filtroFormaPago=maniobra2;
-                        listaVentas = t.leerVentas(null,null,filtroFormaPago,null,null,null);
-                        
-                        Integer orden;
-                        maniobra = Util.convertirStringNull(request.getParameter("criterioOrdenacion"));
-                        if(maniobra==null) orden=null;
-                        else orden=Integer.parseInt(maniobra);
-                        listaVentas = t.leerVentas(null,null,null,null,maniobra,orden);
-                        
-                    %>
+
                         <tr>
                         <td>
                         <input type="text" name="filtroNombre"  id="pequeno" value="<%=Util.convertirNullAStringVacio(filtroNombre)%>"/>
@@ -112,12 +118,12 @@
                         <td></td>
                         <td><select name="filtroFormaPago">
                             <option value=""></option>
-                            <option value="E">Efectivo</option>
-                            <option value="T">Tarjeta</option>
+                            <option value="E" <%if (Util.convertirNullAStringVacio(filtroFormaPago).equals("E")) out.print("selected='selected'");%>>Efectivo</option>
+                            <option value="T" <%if (Util.convertirNullAStringVacio(filtroFormaPago).equals("T")) out.print("selected='selected'");%>>Tarjeta</option>
                         </select>
                         </td>
                         <td>
-                        <select name="filtroDiscoId">
+                        <select name="filtroDiscoId" id="pequeno">
                             <option value=""></option>
                         <%
                             ArrayList<Disco> listaDiscos = t.leerDiscos();
@@ -130,7 +136,9 @@
 
                                 }
                         %>
-                        </select></td></tr>
+                        </select></td>
+                        <td colspan="3"><input type="submit" value="Aplicar Filtro"/></td>
+                        </tr>
                         <%
                             Venta v = null;
                             int pos = 0;

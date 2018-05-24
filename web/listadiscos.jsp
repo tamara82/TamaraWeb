@@ -39,7 +39,68 @@
 
                     }
                 %>
-            </div>
+                </div>
+                <%
+                    String filtroTitulo = Util.convertirStringNull(request.getParameter("filtroTitulo"));
+                    String filtroAutor = Util.convertirStringNull(request.getParameter("filtroAutor"));
+                    String maniobra = Util.convertirStringNull(request.getParameter("filtroAnio"));
+                    Tamara t = new Tamara();
+                        ArrayList<Disco> listaDiscos=t.leerDiscos();
+                        if(filtroTitulo==null)filtroTitulo=null;
+                        else listaDiscos = t.leerDiscos(filtroTitulo,null,null,null,null,null,null);
+                        
+                        if(filtroAutor==null)filtroAutor=null;
+                        else listaDiscos = t.leerDiscos(null,filtroAutor,null,null,null,null,null);
+                        
+                        Integer filtroAnio;
+                        if(maniobra==null){
+                            filtroAnio = null;
+                        }else{
+                            filtroAnio=Integer.parseInt(maniobra);
+                            listaDiscos = t.leerDiscos(null,null,filtroAnio,null,null,null,null);
+                        }
+                        
+                        maniobra=Util.convertirStringNull(request.getParameter("min"));
+                        String maniobra2=Util.convertirStringNull(request.getParameter("max"));
+                        Integer min;
+                        Integer max;
+                        if(maniobra==null && maniobra2==null){
+                            min=null;
+                            max=null;
+                        }else{
+                            min=Integer.parseInt(maniobra);
+                            max=Integer.parseInt(maniobra2);
+                            listaDiscos = t.leerDiscos(null,null,null,min,max,null,null);
+                        }
+                        
+                    maniobra=Util.convertirStringNull(request.getParameter("criterioOrdenacion"));
+                    maniobra2 = Util.convertirStringNull(request.getParameter("orden"));
+                    Integer orden;
+                    Integer criterioOrdenacion=null;
+                        if(maniobra==null){
+                            orden=null;
+                        }else{
+                            criterioOrdenacion=Integer.parseInt(maniobra);
+                            orden=Integer.parseInt(Util.convertirStringNull(request.getParameter("orden")));
+                            listaDiscos = t.leerDiscos(null,null,null,null,null,criterioOrdenacion,orden);
+                        }
+                        
+                    
+                %>
+            <form method="post" action="listadiscos.jsp" id="grande">
+                <p id="derecha">
+                    <label>Ordenar por</label>
+                        <select name="criterioOrdenacion">
+                            <option value=""></option>
+                            <option value="<%=Tamara.TITULO %>" <%if (Tamara.TITULO == criterioOrdenacion) out.print("selected='selected'");%>>Nombre</option>
+                            <option value="<%=Tamara.AUTOR %>" <%if (Tamara.AUTOR == criterioOrdenacion) out.print("selected='selected'");%>>Apellido</option>
+                        </select> 
+                        <select name="orden">
+                            <option value=""></option>
+                            <option value="<%= Tamara.ASCENDING%>" <%if (Tamara.ASCENDING == orden) out.print("selected='selected'");%>>Ascendente</option>
+                            <option value="<%= Tamara.DESCENDING%>" <%if (Tamara.DESCENDING == orden) out.print("selected='selected'");%>>Descendente</option>
+                        </select> 
+                </p>
             <section id="cuerpo" class="item">
                 <table>
                     <tr>
@@ -50,10 +111,29 @@
                         <th>EAN</th>
                         <th><a href="altadisco.jsp" ><img src='img/mas.png'></a></th>
                     </tr>
+                    <tr>
+                        <td><input type="text" name="filtroTitulo"  id="pequeno" value="<%=Util.convertirNullAStringVacio(filtroTitulo)%>"/></td>
+                        <td><input type="text" name="filtroAutor"  id="pequeno" value="<%=Util.convertirNullAStringVacio(filtroAutor)%>"/></td>
+                        <td><select name="filtroAnio" id="pequeno">
+                            <option value=""></option>
+                            <%
+                                for (Disco disco : listaDiscos) {
+                                if(disco.getAnioPublicacion()==filtroAnio){
+                                            out.println("<option value='" + disco.getAnioPublicacion() + "' selected>" + disco.getAnioPublicacion() + "</option>");                                        
+                                        }else{
+                                            out.println("<option value='" + disco.getAnioPublicacion() + "'>" + disco.getAnioPublicacion() + "</option>");
+                                        }
+                                }
+                                    
+                            %>
+                            </select></td>
+                            <td><input type="number" name="min"  id="pequeno" placeholder="Minimo"/></td>
+                            <td><input type="number" name="max"  id="pequeno" placeholder="Máximo"/></td>
+                            <td colspan="3"><input type="submit" value="Aplicar Filtro"/></td>
+                    </tr>
                     <%
                         Disco d = null;
                         Tamara tamara = new Tamara();
-                        ArrayList<Disco> listaDiscos = tamara.leerDiscos();
                         int pos = 0;
                         while (pos < listaDiscos.size()) {
                             d = listaDiscos.get(pos);
@@ -72,8 +152,9 @@
                             pos++;
                         }
                     %>
-                </table>
-            </section>
+                    </table>
+                </section>
+               </form>
             <%@include file="includes/footer.jsp" %>
         </div>
     </body>
