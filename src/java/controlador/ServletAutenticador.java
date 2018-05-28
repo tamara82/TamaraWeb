@@ -43,7 +43,7 @@ public class ServletAutenticador extends HttpServlet {
         String us = request.getParameter("usuario");
         String c = request.getParameter("contrasena");
         ArrayList<String> listaErrores=new ArrayList();
-            if(uE.equals(us)&& cE.equals(c)){
+            if(uE.equals(us) && cE.equals(c)){
                 Usuario usuarioSesion = new Usuario(0,us,c,"A");
                 HttpSession sesion = request.getSession();
                 sesion.setAttribute("usuarioSesion", usuarioSesion);
